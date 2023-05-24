@@ -4,6 +4,7 @@ import 'package:permix/widget/login-form.dart';
 import '../util/constant.dart';
 
 class LoginScreen extends StatelessWidget {
+  static const routeName = '/login';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override

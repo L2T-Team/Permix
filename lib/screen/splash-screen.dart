@@ -18,7 +18,7 @@ class SplashScreen extends StatelessWidget {
             height: 1 / 6 * size.height,
           ),
           ElevatedButton(onPressed: () {}, child: Text('Login')),
-          TextButton(onPressed: () {}, child: Text('Create Account'))
+          TextButton(onPressed: () {}, child: Text('Create Account')),
         ],
       ),
     );
