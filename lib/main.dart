@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/splash-screen.dart';
+import 'package:permix/util/constant.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,6 +11,7 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+
   static const BUTTON_WIDTH_RATIO = 0.38;
 
   @override
@@ -18,13 +21,43 @@ class MainApp extends StatelessWidget {
       title: "Permix",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        colorScheme: const ColorScheme(
+            primary: PRIMARY_COLOR,
+            onPrimary: Colors.black,
+            secondary: SECONDARY_COLOR,
+            onSecondary: Colors.black,
+            background: BACKGROUND_COLOR,
+            //#323232
+            brightness: Brightness.light,
+            error: Colors.red,
+            onError: Colors.red,
+            onBackground: Colors.green,
+            surface: Colors.orange,
+            onSurface: Colors.black12),
         actionIconTheme: const ActionIconThemeData(),
-        badgeTheme: BadgeThemeData(),
+        appBarTheme: AppBarTheme(
+          color: SECONDARY_COLOR,
+          elevation: 0,
+        ),
         fontFamily: "Lato",
+        textTheme: TextTheme(
+          headlineLarge: TextStyle(
+            color: PRIMARY_COLOR,
+            fontWeight: FontWeight.w900,
+            fontSize: 30,
+          ),
+          bodySmall: TextStyle(
+              color: PRIMARY_COLOR, fontWeight: FontWeight.w300, fontSize: 16),
+          bodyMedium: TextStyle(
+              color: PRIMARY_COLOR, fontWeight: FontWeight.w400, fontSize: 16),
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             fixedSize: MaterialStateProperty.all(
               Size.fromWidth(BUTTON_WIDTH_RATIO * size.width),
+            ),
+            padding: MaterialStateProperty.all(
+              EdgeInsets.only(top: 5, bottom: 5),
             ),
             shape: MaterialStateProperty.all(
               LinearBorder(side: BorderSide.none),
@@ -39,10 +72,13 @@ class MainApp extends StatelessWidget {
             fixedSize: MaterialStateProperty.all(
               Size.fromWidth(BUTTON_WIDTH_RATIO * size.width),
             ),
+            padding: MaterialStateProperty.all(
+              EdgeInsets.only(top: 10, bottom: 10),
+            ),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 side: BorderSide(
-                  color: Color.fromRGBO(220, 207, 102, 1),
+                  color: PRIMARY_COLOR,
                   // Theme.of(context).colorScheme.primary,
                   //this cause error
                   width: 1,
@@ -51,20 +87,8 @@ class MainApp extends StatelessWidget {
             ),
           ),
         ),
-        colorScheme: const ColorScheme(
-            primary: Color.fromRGBO(220, 207, 102, 1),
-            onPrimary: Colors.black,
-            secondary: Color.fromRGBO(127, 105, 81, 1),
-            onSecondary: Colors.black,
-            background: Color.fromRGBO(50, 50, 50, 1), //#323232
-            brightness: Brightness.light,
-            error: Colors.red,
-            onError: Colors.red,
-            onBackground: Colors.green,
-            surface: Colors.orange,
-            onSurface: Colors.black12),
       ),
-      home: Scaffold(body: LoginScreen()),
+      home: LoginScreen(),
     );
   }
 }
