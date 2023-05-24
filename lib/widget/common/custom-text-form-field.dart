@@ -28,7 +28,7 @@ class CustomTextFormField extends StatelessWidget {
           suffixIconColor: PRIMARY_COLOR,
         ),
         style: Theme.of(context).textTheme.bodyMedium,
-        obscureText: true,
+        obscureText: isPassword,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';

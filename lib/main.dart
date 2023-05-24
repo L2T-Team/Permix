@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/screen/login-screen.dart';
+import 'package:permix/screen/product-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
 import 'package:permix/screen/splash-screen.dart';
 import 'package:permix/util/constant.dart';
@@ -89,7 +90,38 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SignupScreen(),
+      home: const SplashScreen(),
+      /*onGenerateRoute: (settings) {
+        //TODO: find better way
+        switch (settings.name) {
+          case SplashScreen.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (_, __, ___) => SplashScreen(),
+              transitionDuration: Duration(seconds: 2),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            );
+          case LoginScreen.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (_, __, ___) => LoginScreen(),
+              transitionDuration: Duration(seconds: 2),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            );
+          case SignupScreen.routeName:
+            return PageRouteBuilder(
+              pageBuilder: (_, __, ___) => SplashScreen(),
+              transitionDuration: Duration(seconds: 2),
+              transitionsBuilder: (_, a, __, c) =>
+                  FadeTransition(opacity: a, child: c),
+            );
+        }
+      },*/
+      routes: {
+        LoginScreen.routeName: (ctx) => LoginScreen(),
+        ProductScreen.routeName: (ctx) => ProductScreen(),
+        SignupScreen.routeName: (ctx) => SignupScreen(),
+      },
     );
   }
 }

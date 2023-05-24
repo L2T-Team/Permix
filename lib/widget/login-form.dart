@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
@@ -37,6 +38,14 @@ class _LoginFormState extends State<LoginForm> {
                     const SnackBar(content: Text('Processing Data')),
                   );
                 }
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => ProductScreen(),
+                    transitionDuration: Duration(seconds: 1),
+                    transitionsBuilder: (_, a, __, c) =>
+                        FadeTransition(opacity: a, child: c),
+                  ),
+                );
               },
               child: const Text('Log in'),
             ),

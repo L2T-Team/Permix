@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:permix/screen/product-screen.dart';
 
 import 'common/custom-text-form-field.dart';
 
@@ -44,17 +45,18 @@ class _SignupFormState extends State<SignupForm> {
                     const SnackBar(content: Text('Processing Data')),
                   );
                 }
+                Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (_, __, ___) => ProductScreen(),
+                    transitionDuration: Duration(seconds: 1),
+                    transitionsBuilder: (_, a, __, c) =>
+                        FadeTransition(opacity: a, child: c),
+                  ),
+                );
               },
               child: const Text('Log in'),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: TextButton(
-              onPressed: () {},
-              child: Text('Forgot Password'),
-            ),
-          )
         ],
       ),
     );
