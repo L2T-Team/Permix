@@ -54,7 +54,7 @@ class _SignupFormState extends State<SignupForm> {
                   ),
                 );
               },
-              child: const Text('Log in'),
+              child: const Text('Create Account'),
             ),
           ),
         ],
