@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:permix/util/constant.dart';
-import 'package:permix/widget/common/custom-text-form-field.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+import 'common/custom-text-form-field.dart';
+
+class SignupForm extends StatefulWidget {
+  const SignupForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<SignupForm> createState() => _SignupFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _SignupFormState extends State<SignupForm> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -22,7 +22,14 @@ class _LoginFormState extends State<LoginForm> {
             labelText: "Account Name",
           ),
           const CustomTextFormField(
+            labelText: "Gmail",
+          ),
+          const CustomTextFormField(
             labelText: "Password",
+            isPassword: true,
+          ),
+          const CustomTextFormField(
+            labelText: "Confirm Password",
             isPassword: true,
           ),
           Padding(

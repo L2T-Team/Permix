@@ -19,11 +19,14 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         // The validator receives the text that the user has entered.
         decoration: InputDecoration(
-            labelText: labelText,
-            labelStyle: TextStyle(color: PRIMARY_COLOR),
-            suffixIcon:
-                isPassword ? Icon(Icons.remove_red_eye_outlined) : SizedBox(),
-            suffixIconColor: PRIMARY_COLOR),
+          labelText: labelText,
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: SECONDARY_COLOR)),
+          labelStyle: TextStyle(color: PRIMARY_COLOR),
+          suffixIcon:
+              isPassword ? Icon(Icons.remove_red_eye_outlined) : SizedBox(),
+          suffixIconColor: PRIMARY_COLOR,
+        ),
         style: Theme.of(context).textTheme.bodyMedium,
         obscureText: true,
         validator: (value) {

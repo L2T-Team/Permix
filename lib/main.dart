@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/screen/login-screen.dart';
+import 'package:permix/screen/signup-screen.dart';
 import 'package:permix/screen/splash-screen.dart';
 import 'package:permix/util/constant.dart';
 
@@ -76,7 +77,7 @@ class MainApp extends StatelessWidget {
               EdgeInsets.only(top: 10, bottom: 10),
             ),
             shape: MaterialStateProperty.all(
-              RoundedRectangleBorder(
+              const RoundedRectangleBorder(
                 side: BorderSide(
                   color: PRIMARY_COLOR,
                   // Theme.of(context).colorScheme.primary,
@@ -88,7 +89,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
