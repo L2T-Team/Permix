@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/screen/login-screen.dart';
+import 'package:permix/screen/menu-screen.dart';
 import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
@@ -43,15 +44,17 @@ class MainApp extends StatelessWidget {
           elevation: 0,
         ),
         fontFamily: "Lato",
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headlineLarge: TextStyle(
             color: PRIMARY_COLOR,
             fontWeight: FontWeight.w900,
             fontSize: 30,
           ),
           bodySmall: TextStyle(
-              color: PRIMARY_COLOR, fontWeight: FontWeight.w300, fontSize: 16,
-          height: 1.5),
+              color: PRIMARY_COLOR,
+              fontWeight: FontWeight.w300,
+              fontSize: 16,
+              height: 1.5),
           bodyMedium: TextStyle(
               color: PRIMARY_COLOR, fontWeight: FontWeight.w400, fontSize: 16),
         ),
@@ -92,7 +95,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home:  ProductDetailScreen(),
+      home: const MenuScreen(),
       /*onGenerateRoute: (settings) {
         //TODO: find better way
         switch (settings.name) {
