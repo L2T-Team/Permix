@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
@@ -57,7 +58,11 @@ class MainApp extends StatelessWidget {
               fontSize: 16,
               height: 1.5),
           bodyMedium: TextStyle(
-              color: PRIMARY_COLOR, fontWeight: FontWeight.w400, fontSize: 16),
+            color: PRIMARY_COLOR,
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            height: 1.5,
+          ),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
@@ -96,7 +101,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const CustomizeScreen(),
+      home: const CartScreen(),
       /*onGenerateRoute: (settings) {
         //TODO: find better way
         switch (settings.name) {
