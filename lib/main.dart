@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
 import 'package:permix/screen/product-detail-screen.dart';
@@ -95,7 +96,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const MenuScreen(),
+      home: const CustomizeScreen(),
       /*onGenerateRoute: (settings) {
         //TODO: find better way
         switch (settings.name) {
