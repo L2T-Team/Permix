@@ -7,6 +7,7 @@ import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
 import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/screen/product-screen.dart';
+import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
 import 'package:permix/screen/splash-screen.dart';
 import 'package:permix/util/constant.dart';
@@ -101,7 +102,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const CartScreen(),
+      home: const ShippingScreen(),
       /*onGenerateRoute: (settings) {
         //TODO: find better way
         switch (settings.name) {
