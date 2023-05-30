@@ -111,7 +111,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
+      home: const PaymentScreen(),
       routes: {
         PermixRoutes.cartScreen: (_) => const CartScreen(),
         PermixRoutes.customizeScreen: (_) => const CustomizeScreen(),

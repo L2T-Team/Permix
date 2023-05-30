@@ -22,6 +22,11 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+  final _phoneNum = '0327 334 385';
+  final _name = 'TRAN DINH MINH NHAN';
+  final _bankName = 'TP Bank';
+  final _bankNum = '03594892501';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +72,9 @@ class PaymentScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            _buildInfoRow(context, Icons.money, 'TP Bank'),
-            _buildInfoRow(context, Icons.numbers, '01234 22324'),
-            _buildInfoRow(context, Icons.person, 'NGUYEN HUYNH MINH KHOI'),
+            _buildInfoRow(context, Icons.money, _bankName),
+            _buildInfoRow(context, Icons.numbers, _bankNum),
+            _buildInfoRow(context, Icons.person, _name),
             _buildInfoRow(context, Icons.description, 'order_1_20231201'),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -84,9 +89,21 @@ class PaymentScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             SizedBox(height: 10),
-            _buildInfoRow(context, Icons.numbers, '01234 22324'),
-            _buildInfoRow(context, Icons.person, 'NGUYEN HUYNH MINH KHOI'),
+            _buildInfoRow(context, Icons.numbers, _phoneNum),
+            _buildInfoRow(context, Icons.person, _name),
             _buildInfoRow(context, Icons.description, 'order_1_20231201'),
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                highlightColor: PRIMARY_COLOR,
+                splashColor: PRIMARY_COLOR,
+                child: _buildInfoRow(context, Icons.qr_code, 'Show QR Code'),
+                onTap: () async {
+                  await showDialog(
+                      context: context, builder: (_) => ImageDialog());
+                },
+              ),
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -94,13 +111,45 @@ class PaymentScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    TextButton(onPressed: () {
-                      Navigator.of(context).pop();
-                    }, child: Text('Back')),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Back')),
                     ElevatedButton(onPressed: () {}, child: Text('Transfered'))
                   ],
                 ),
               ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ImageDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Dialog(
+      child: Container(
+        width: size.width - 40,
+        padding: EdgeInsets.all(10),
+        color: Theme.of(context).colorScheme.background,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('$IMAGE_PATH/qr-code.jpg'),
+            SizedBox(
+              height: 10,
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
             )
           ],
         ),
