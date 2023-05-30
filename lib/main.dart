@@ -5,6 +5,7 @@ import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
+import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
@@ -46,6 +47,7 @@ class MainApp extends StatelessWidget {
           color: SECONDARY_COLOR,
           elevation: 0,
         ),
+        iconTheme: IconThemeData(color: PRIMARY_COLOR),
         fontFamily: "Lato",
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
@@ -102,7 +104,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const ShippingScreen(),
+      home: const PaymentScreen(),
       /*onGenerateRoute: (settings) {
         //TODO: find better way
         switch (settings.name) {
