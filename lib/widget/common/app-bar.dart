@@ -32,7 +32,11 @@ AppBar getAppBar(BuildContext context,
         Padding(
           padding: const EdgeInsets.only(right: 25.0),
           child: IconButton(
-            icon: ImageIcon(
+            padding: EdgeInsets.zero,
+            visualDensity: const VisualDensity(
+                horizontal: VisualDensity.minimumDensity,
+                vertical: VisualDensity.minimumDensity),
+            icon: const ImageIcon(
               AssetImage('assets/images/cart-icon.png'),
               color: PRIMARY_COLOR,
             ),
@@ -40,7 +44,7 @@ AppBar getAppBar(BuildContext context,
                 ? () {
                     Navigator.of(context).push(
                         CustomPageRouteBuilder.getPageRouteBuilder(
-                            CartScreen()));
+                            const CartScreen()));
                   }
                 : () {},
           ),

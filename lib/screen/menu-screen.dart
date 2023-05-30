@@ -44,8 +44,8 @@ class MenuScreen extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
+                  // Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
                       CustomPageRouteBuilder.getPageRouteBuilder(
                           ProductScreen()));
                 },
@@ -53,8 +53,8 @@ class MenuScreen extends StatelessWidget {
             SizedBox(height: 10),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
+                  // Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(
                       CustomPageRouteBuilder.getPageRouteBuilder(
                           CustomizeScreen()));
                 },

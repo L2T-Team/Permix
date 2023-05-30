@@ -5,6 +5,7 @@ import '../util/constant.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
+
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
@@ -57,11 +58,8 @@ class LoginScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-              Text(
-                'Log in with Username',
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              LoginForm()
+
+              const LoginForm()
             ],
           ),
         ),

@@ -22,8 +22,12 @@ class _LoginFormState extends State<LoginForm> {
       key: _formKey,
       child: Column(
         children: [
+          Text(
+            'Log in with email & password',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
           const CustomTextFormField(
-            labelText: "Account Name",
+            labelText: "Email",
           ),
           const CustomTextFormField(
             labelText: "Password",
@@ -42,8 +46,8 @@ class _LoginFormState extends State<LoginForm> {
                   );
                 }
                 Navigator.of(context).push(
-                  CustomPageRouteBuilder.getPageRouteBuilder(ProductScreen()));
-                // Navigator.of(context).pushNamed(PermixRoutes.loginScreen);
+                    CustomPageRouteBuilder.getPageRouteBuilder(
+                        const ProductScreen()));
               },
               child: const Text('Log in'),
             ),
@@ -51,7 +55,13 @@ class _LoginFormState extends State<LoginForm> {
           Padding(
             padding: EdgeInsets.only(top: 10),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Container(
+                    child: Text('Feature is coming soon!'),
+                  ),
+                ));
+              },
               child: Text('Forgot Password'),
             ),
           )

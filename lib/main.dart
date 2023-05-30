@@ -10,7 +10,7 @@ import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
-import 'package:permix/screen/splash-screen.dart';
+import 'package:permix/screen/home-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/util/routes.dart';
 
@@ -96,16 +96,22 @@ class MainApp extends StatelessWidget {
               const RoundedRectangleBorder(
                 side: BorderSide(
                   color: PRIMARY_COLOR,
-                  // Theme.of(context).colorScheme.primary,
-                  //this cause error
                   width: 1,
                 ),
               ),
             ),
           ),
         ),
+        snackBarTheme: const SnackBarThemeData(
+          contentTextStyle: TextStyle(
+            color: PRIMARY_COLOR,
+            fontWeight: FontWeight.w300,
+            fontSize: 16,
+            height: 1.5,
+          ),
+        ),
       ),
-      home: const SplashScreen(),
+      home: const LoginScreen(),
       routes: {
         PermixRoutes.cartScreen: (_) => const CartScreen(),
         PermixRoutes.customizeScreen: (_) => const CustomizeScreen(),
@@ -116,7 +122,7 @@ class MainApp extends StatelessWidget {
         PermixRoutes.productScreen: (_) => const ProductScreen(),
         PermixRoutes.shippingScreen: (_) => const ShippingScreen(),
         PermixRoutes.signUpScreen: (_) => const SignupScreen(),
-        PermixRoutes.splashScreen: (_) => const SplashScreen(),
+        PermixRoutes.splashScreen: (_) => const HomeScreen(),
       },
     );
   }
