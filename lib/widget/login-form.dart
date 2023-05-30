@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/custom-page-route-builder.dart';
+import 'package:permix/util/routes.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
 class LoginForm extends StatefulWidget {
@@ -39,13 +42,8 @@ class _LoginFormState extends State<LoginForm> {
                   );
                 }
                 Navigator.of(context).push(
-                  PageRouteBuilder(
-                    pageBuilder: (_, __, ___) => ProductScreen(),
-                    transitionDuration: Duration(seconds: 1),
-                    transitionsBuilder: (_, a, __, c) =>
-                        FadeTransition(opacity: a, child: c),
-                  ),
-                );
+                  CustomPageRouteBuilder.getPageRouteBuilder(ProductScreen()));
+                // Navigator.of(context).pushNamed(PermixRoutes.loginScreen);
               },
               child: const Text('Log in'),
             ),

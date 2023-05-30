@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:permix/screen/payment-screen.dart';
+import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/common/cart-item.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
+
+import '../util/custom-page-route-builder.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -12,7 +16,7 @@ class CartScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar(context, isCartActive: false),
       body: Container(
         width: size.width,
         height: size.height - kToolbarHeight - padding.top,
@@ -105,11 +109,19 @@ class CartScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed: () {},
-                        child: Text('Payment Details'),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              CustomPageRouteBuilder.getPageRouteBuilder(
+                                  ShippingScreen()));
+                        },
+                        child: Text('Shipping Info'),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              CustomPageRouteBuilder.getPageRouteBuilder(
+                                  PaymentScreen()));
+                        },
                         child: Text('Purchase'),
                       ),
                     ],

@@ -25,7 +25,7 @@ class PaymentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar(context),
       body: Container(
         padding: EdgeInsets.symmetric(
           vertical: 20,
@@ -94,8 +94,10 @@ class PaymentScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    TextButton(onPressed: () {}, child: Text('Back')),
-                    ElevatedButton(onPressed: () {}, child: Text('Transered'))
+                    TextButton(onPressed: () {
+                      Navigator.of(context).pop();
+                    }, child: Text('Back')),
+                    ElevatedButton(onPressed: () {}, child: Text('Transfered'))
                   ],
                 ),
               ),

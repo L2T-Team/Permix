@@ -12,7 +12,7 @@ class CustomizeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar(context),
       body: SingleChildScrollView(
         child: Container(
           width: size.width,
@@ -49,7 +49,12 @@ class CustomizeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(onPressed: () {}, child: Text('Back')),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Back'),
+                  ),
                   ElevatedButton(onPressed: () {}, child: Text('Confirm'))
                 ],
               )

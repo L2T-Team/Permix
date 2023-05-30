@@ -12,6 +12,7 @@ import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
 import 'package:permix/screen/splash-screen.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/routes.dart';
 
 void main() {
   runApp(const MainApp());
@@ -104,37 +105,18 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const PaymentScreen(),
-      /*onGenerateRoute: (settings) {
-        //TODO: find better way
-        switch (settings.name) {
-          case SplashScreen.routeName:
-            return PageRouteBuilder(
-              pageBuilder: (_, __, ___) => SplashScreen(),
-              transitionDuration: Duration(seconds: 2),
-              transitionsBuilder: (_, a, __, c) =>
-                  FadeTransition(opacity: a, child: c),
-            );
-          case LoginScreen.routeName:
-            return PageRouteBuilder(
-              pageBuilder: (_, __, ___) => LoginScreen(),
-              transitionDuration: Duration(seconds: 2),
-              transitionsBuilder: (_, a, __, c) =>
-                  FadeTransition(opacity: a, child: c),
-            );
-          case SignupScreen.routeName:
-            return PageRouteBuilder(
-              pageBuilder: (_, __, ___) => SplashScreen(),
-              transitionDuration: Duration(seconds: 2),
-              transitionsBuilder: (_, a, __, c) =>
-                  FadeTransition(opacity: a, child: c),
-            );
-        }
-      },*/
+      home: const SplashScreen(),
       routes: {
-        LoginScreen.routeName: (ctx) => LoginScreen(),
-        ProductScreen.routeName: (ctx) => ProductScreen(),
-        SignupScreen.routeName: (ctx) => SignupScreen(),
+        PermixRoutes.cartScreen: (_) => const CartScreen(),
+        PermixRoutes.customizeScreen: (_) => const CustomizeScreen(),
+        PermixRoutes.loginScreen: (_) => const LoginScreen(),
+        PermixRoutes.menuScreen: (_) => const MenuScreen(),
+        PermixRoutes.paymentScreen: (_) => const PaymentScreen(),
+        PermixRoutes.productDetailScreen: (_) => const ProductDetailScreen(),
+        PermixRoutes.productScreen: (_) => const ProductScreen(),
+        PermixRoutes.shippingScreen: (_) => const ShippingScreen(),
+        PermixRoutes.signUpScreen: (_) => const SignupScreen(),
+        PermixRoutes.splashScreen: (_) => const SplashScreen(),
       },
     );
   }

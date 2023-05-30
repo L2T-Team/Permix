@@ -9,7 +9,7 @@ class ShippingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar(context),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.symmetric(
@@ -26,25 +26,40 @@ class ShippingScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(child: CustomTextFormField(labelText: 'City')),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 Expanded(child: CustomTextFormField(labelText: 'Postcode')),
               ],
             ),
             Row(
               children: [
                 Expanded(child: CustomTextFormField(labelText: 'Phone number')),
-                SizedBox(width: 20,),
+                SizedBox(
+                  width: 20,
+                ),
                 Expanded(child: SizedBox()),
               ],
             ),
-            Expanded(child: Container(
+            Expanded(
+                child: Container(
               alignment: Alignment.bottomCenter,
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(onPressed: (){}, child: Text('Back')),
-                  ElevatedButton(onPressed: (){}, child: Text('Save')),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Back'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Save'),
+                  ),
                 ],
               ),
             ))

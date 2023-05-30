@@ -14,7 +14,7 @@ class ProductScreen extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: appBar,
+      appBar: getAppBar(context),
       body: Container(
         width: double.infinity,
         height: size.height - kToolbarHeight,
