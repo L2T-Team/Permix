@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:permix/widget/common/list-item.dart';
+import 'package:permix/widget/item/list-item.dart';
 
 import '../../util/constant.dart';
 

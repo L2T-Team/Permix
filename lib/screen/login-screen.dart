@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permix/widget/login-form.dart';
 
 import '../util/constant.dart';
+import '../widget/common/custom-snack-bar.dart';
 
 class LoginScreen extends StatelessWidget {
   static const routeName = '/login';
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
           height: size.height,
           alignment: Alignment.topLeft,
           color: Theme.of(context).colorScheme.background,
-          padding: EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -43,7 +44,9 @@ class LoginScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showFeatureSoonSnackBar(context);
+                  },
                   child: Text(
                     'Google',
                     style: Theme.of(context).textTheme.bodyMedium,
@@ -58,7 +61,6 @@ class LoginScreen extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
-
               const LoginForm()
             ],
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permix/model/enum.dart';
-import 'package:permix/widget/common/list-item.dart';
-import 'package:permix/widget/common/order-status-badge.dart';
+import 'package:permix/widget/item/list-item.dart';
+import 'package:permix/widget/order-status-badge.dart';
 
 class OrderItem extends StatelessWidget {
   const OrderItem({Key? key}) : super(key: key);

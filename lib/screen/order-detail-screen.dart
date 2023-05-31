@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
-import 'package:permix/widget/common/order-detail-item.dart';
+import 'package:permix/widget/item/order-detail-item.dart';
 
 import '../util/constant.dart';
 import '../util/custom-page-route-builder.dart';
 import '../widget/common/app-bar.dart';
-import '../widget/common/cart-item.dart';
+import '../widget/item/cart-item.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   const OrderDetailScreen({Key? key}) : super(key: key);

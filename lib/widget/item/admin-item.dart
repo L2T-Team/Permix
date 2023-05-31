@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../model/enum.dart';
 import 'list-item.dart';
-import 'order-status-badge.dart';
+import '../order-status-badge.dart';
 
 class AdminItem extends StatelessWidget {
   const AdminItem({Key? key}) : super(key: key);

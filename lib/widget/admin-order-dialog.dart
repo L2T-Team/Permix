@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permix/model/enum.dart';
 import 'package:permix/widget/common/info-row.dart';
 
-import '../../util/constant.dart';
+import '../util/constant.dart';
 
 class AdminOrderDialog extends StatefulWidget {
   const AdminOrderDialog({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:permix/util/constant.dart';
-import 'package:permix/widget/common/order-item.dart';
+import 'package:permix/widget/item/order-item.dart';
 
 import '../widget/common/app-bar.dart';
-import '../widget/common/cart-item.dart';
+import '../widget/item/cart-item.dart';
 
 class OrderScreen extends StatelessWidget {
   const OrderScreen({Key? key}) : super(key: key);

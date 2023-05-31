@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:permix/util/constant.dart';
 
-import '../../model/enum.dart';
+import '../model/enum.dart';
 
 class CharacteristicSelectionList extends StatefulWidget {
   const CharacteristicSelectionList({

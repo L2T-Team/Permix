@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/util/constant.dart';
-import 'package:permix/widget/common/admin-order-dialog.dart';
+import 'package:permix/widget/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
 
 import '../widget/common/info-row.dart';

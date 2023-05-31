@@ -56,11 +56,13 @@ class _LoginFormState extends State<LoginForm> {
             padding: EdgeInsets.only(top: 10),
             child: TextButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Container(
-                    child: Text('Feature is coming soon!'),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Container(
+                      child: Text('Feature is coming soon!'),
+                    ),
                   ),
-                ));
+                );
               },
               child: Text('Forgot Password'),
             ),

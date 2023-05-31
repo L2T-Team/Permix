@@ -3,7 +3,7 @@ import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
-import 'package:permix/widget/common/cart-item.dart';
+import 'package:permix/widget/item/cart-item.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
 import '../util/custom-page-route-builder.dart';

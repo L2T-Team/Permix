@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:permix/util/constant.dart';
-import 'package:permix/widget/common/admin-item.dart';
+import 'package:permix/widget/item/admin-item.dart';
 
 import '../widget/common/app-bar.dart';
-import '../widget/common/order-item.dart';
+import '../widget/item/order-item.dart';
 
 class AdminScreen extends StatelessWidget {
   const AdminScreen({Key? key}) : super(key: key);

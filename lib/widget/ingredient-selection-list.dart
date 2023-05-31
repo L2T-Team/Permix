@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../util/constant.dart';
+import '../util/constant.dart';
 
 class IngredientSelectionList extends StatefulWidget {
   const IngredientSelectionList({Key? key}) : super(key: key);

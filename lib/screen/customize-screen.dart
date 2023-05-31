@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permix/model/enum.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
-import 'package:permix/widget/common/characteristic-selection-list.dart';
-import 'package:permix/widget/common/ingredient-selection-list.dart';
+import 'package:permix/widget/characteristic-selection-list.dart';
+import 'package:permix/widget/ingredient-selection-list.dart';
 
 class CustomizeScreen extends StatelessWidget {
   const CustomizeScreen({Key? key}) : super(key: key);
