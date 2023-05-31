@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:permix/screen/customize-screen.dart';
+import 'package:permix/screen/order-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
@@ -85,7 +86,11 @@ class MenuScreen extends StatelessWidget {
                       },
                       child: Text('Customize')),
                   SizedBox(height: 10),
-                  ElevatedButton(onPressed: () {}, child: Text('My Orders')),
+                  ElevatedButton(onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                        CustomPageRouteBuilder.getPageRouteBuilder(
+                            OrderScreen()));
+                  }, child: Text('My Orders')),
                   SizedBox(height: 10),
                   ElevatedButton(onPressed: () {}, child: Text('Settings')),
                   SizedBox(height: 10),

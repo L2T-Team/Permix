@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:permix/model/enum.dart';
-import 'package:permix/widget/common/list-item.dart';
-import 'package:permix/widget/common/order-status-badge.dart';
 
-class OrderItem extends StatelessWidget {
-  const OrderItem({Key? key}) : super(key: key);
+import '../../model/enum.dart';
+import 'list-item.dart';
+import 'order-status-badge.dart';
+
+class AdminItem extends StatelessWidget {
+  const AdminItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +17,7 @@ class OrderItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          OrderStatusBadge(
-              status: OrderStatus(OrderStatusValues.delivering).toString()),
+          // OrderStatusBadge(status: OrderStatus.delivering),
           Text(
             'Verifying payment!',
             style:
@@ -27,6 +27,7 @@ class OrderItem extends StatelessWidget {
       ),
       title: '01/04/2013',
       subTitle: '2.999K',
+
     );
   }
 }

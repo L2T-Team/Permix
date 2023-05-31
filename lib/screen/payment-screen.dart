@@ -1,26 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/widget/common/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
+
+import '../widget/common/info-row.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({Key? key}) : super(key: key);
-
-  Widget _buildInfoRow(BuildContext ctx, IconData icon, String label) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      child: Row(
-        children: [
-          Icon(icon),
-          const SizedBox(width: 10),
-          Text(
-            label,
-            style: Theme.of(ctx).textTheme.bodyMedium!.copyWith(height: 1),
-          ),
-        ],
-      ),
-    );
-  }
 
   final _phoneNum = '0327 334 385';
   final _name = 'TRAN DINH MINH NHAN';
@@ -72,10 +59,10 @@ class PaymentScreen extends StatelessWidget {
             SizedBox(
               height: 10,
             ),
-            _buildInfoRow(context, Icons.money, _bankName),
-            _buildInfoRow(context, Icons.numbers, _bankNum),
-            _buildInfoRow(context, Icons.person, _name),
-            _buildInfoRow(context, Icons.description, 'order_1_20231201'),
+            InfoRow(Icons.money, _bankName),
+            InfoRow(Icons.numbers, _bankNum),
+            InfoRow(Icons.person, _name),
+            InfoRow(Icons.description, 'order_1_20231201'),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Divider(
@@ -89,15 +76,15 @@ class PaymentScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             SizedBox(height: 10),
-            _buildInfoRow(context, Icons.numbers, _phoneNum),
-            _buildInfoRow(context, Icons.person, _name),
-            _buildInfoRow(context, Icons.description, 'order_1_20231201'),
+            InfoRow(Icons.numbers, _phoneNum),
+            InfoRow(Icons.person, _name),
+            InfoRow(Icons.description, 'order_1_20231201'),
             Material(
               color: Colors.transparent,
               child: InkWell(
                 highlightColor: PRIMARY_COLOR,
                 splashColor: PRIMARY_COLOR,
-                child: _buildInfoRow(context, Icons.qr_code, 'QR Code'),
+                child: InfoRow(Icons.qr_code, 'QR Code'),
                 onTap: () async {
                   await showDialog(
                       context: context, builder: (_) => ImageDialog());

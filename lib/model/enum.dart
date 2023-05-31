@@ -21,10 +21,34 @@ class Capacity {
 }
 
 class OrderStatus {
-  static const paid = 'Paid';
-  static const verifying = 'Verifying';
-  static const failed = 'Failed';
-  static const processing = 'Processing';
-  static const delivering = 'Delivering';
-  static const delivered = 'Delivered';
+  final OrderStatusValues statusVal;
+
+  OrderStatus(this.statusVal);
+
+  @override
+  String toString() {
+    switch (statusVal) {
+      case OrderStatusValues.paid:
+        return "Paid";
+      case OrderStatusValues.verifying:
+        return "Verifying";
+      case OrderStatusValues.failed:
+        return "Failed";
+      case OrderStatusValues.processing:
+        return "Processing";
+      case OrderStatusValues.delivering:
+        return 'Delivering';
+      case OrderStatusValues.delivered:
+        return "Delivered";
+    }
+  }
+}
+
+enum OrderStatusValues {
+  paid,
+  verifying,
+  failed,
+  processing,
+  delivering,
+  delivered,
 }
