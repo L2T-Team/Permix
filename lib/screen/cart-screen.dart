@@ -22,7 +22,7 @@ class CartScreen extends StatelessWidget {
         height: size.height - kToolbarHeight - padding.top,
         color: Theme.of(context).colorScheme.background,
         padding: EdgeInsets.symmetric(
-            vertical: 30, horizontal: DEFAULT_HORIZONTAL_PADDING),
+            vertical: 20, horizontal: DEFAULT_HORIZONTAL_PADDING),
         child: Column(
           children: [
             Text(
@@ -50,8 +50,7 @@ class CartScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            SizedBox(
-              height: size.height / 2.5,
+            Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: 5,
@@ -69,54 +68,55 @@ class CartScreen extends StatelessWidget {
                   AssetImage('$IMAGE_PATH/truck-icon.png'),
                   color: PRIMARY_COLOR,
                 ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  'Free Shipping applied over 4.000k!',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(height: 1),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Text(
+                    'Free Shipping applied over 4.000k!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(height: 1),
+                  ),
                 )
               ],
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Total Amount'),
-                      Text(
-                        '5.000k',
-                        style: Theme.of(context).textTheme.headlineLarge,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Total Amount'),
+                    Text(
+                      '5.000k',
+                      style: Theme.of(context).textTheme.headlineLarge,
+                    ),
+                  ],
+                ),
+                Divider(
+                  thickness: 1,
+                  height: 6,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text('Back'),
                       ),
-                    ],
-                  ),
-                  Divider(
-                    thickness: 1,
-                    height: 6,
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              CustomPageRouteBuilder.getPageRouteBuilder(
-                                  ShippingScreen()));
-                        },
-                        child: Text('Shipping Info'),
-                      ),
-                      ElevatedButton(
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
                               CustomPageRouteBuilder.getPageRouteBuilder(
@@ -124,10 +124,23 @@ class CartScreen extends StatelessWidget {
                         },
                         child: Text('Purchase'),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Flexible(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                              CustomPageRouteBuilder.getPageRouteBuilder(
+                                  ShippingScreen()));
+                        },
+                        child: Text('Shipping Info'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             )
           ],
         ),

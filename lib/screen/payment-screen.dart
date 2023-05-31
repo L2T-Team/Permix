@@ -97,7 +97,7 @@ class PaymentScreen extends StatelessWidget {
               child: InkWell(
                 highlightColor: PRIMARY_COLOR,
                 splashColor: PRIMARY_COLOR,
-                child: _buildInfoRow(context, Icons.qr_code, 'Show QR Code'),
+                child: _buildInfoRow(context, Icons.qr_code, 'QR Code'),
                 onTap: () async {
                   await showDialog(
                       context: context, builder: (_) => ImageDialog());

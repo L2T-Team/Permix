@@ -19,3 +19,12 @@ class Capacity {
     }
   }
 }
+
+class OrderStatus {
+  static const paid = 'Paid';
+  static const verifying = 'Verifying';
+  static const failed = 'Failed';
+  static const processing = 'Processing';
+  static const delivering = 'Delivering';
+  static const delivered = 'Delivered';
+}

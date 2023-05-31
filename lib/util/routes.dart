@@ -9,4 +9,6 @@ class PermixRoutes {
   static const shippingScreen = '/shipping';
   static const signUpScreen = '/sign-up';
   static const splashScreen = '/splash';
+  static const orderScreen = '/orders';
+  static const orderDetailScreen = '/order-detail';
 }

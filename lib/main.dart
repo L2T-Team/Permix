@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:permix/screen/admin-screen.dart';
 import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
+import 'package:permix/screen/order-detail-screen.dart';
+import 'package:permix/screen/order-screen.dart';
 import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/screen/product-screen.dart';
@@ -122,6 +125,8 @@ class MainApp extends StatelessWidget {
         PermixRoutes.productScreen: (_) => const ProductScreen(),
         PermixRoutes.shippingScreen: (_) => const ShippingScreen(),
         PermixRoutes.signUpScreen: (_) => const SignupScreen(),
+        PermixRoutes.orderScreen: (_) => const OrderScreen(),
+        PermixRoutes.orderDetailScreen: (_) => const OrderDetailScreen(),
         PermixRoutes.splashScreen: (_) => const HomeScreen(),
       },
     );
