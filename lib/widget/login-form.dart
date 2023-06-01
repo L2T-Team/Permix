@@ -1,74 +1,136 @@
 import 'package:flutter/material.dart';
-import 'package:permix/screen/login-screen.dart';
-import 'package:permix/screen/product-screen.dart';
-import 'package:permix/util/constant.dart';
-import 'package:permix/util/custom-page-route-builder.dart';
-import 'package:permix/util/routes.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:form_validator/form_validator.dart';
+import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
-class LoginForm extends StatefulWidget {
+import '../model/user.dart';
+import '../screen/product-screen.dart';
+import '../util/custom-page-route-builder.dart';
+
+class LoginForm extends ConsumerStatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  ConsumerState<LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
+  final authProvider = StateNotifierProvider<AuthNotifier, UserData?>((ref) {
+    return AuthNotifier(
+      UserData(
+        user: const User(id: ''),
+      ),
+    );
+  });
+
+  String _enteredEmail = '';
+  String _enteredPassword = '';
+  late String error;
+  var _isLoading = false;
+
+  void _onSaveEmail(String? email) {
+    _enteredEmail = email!;
+  }
+
+  void _onSavePassword(String? password) {
+    _enteredPassword = password!;
+  }
+
+  Future _onLoginTap() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
+      await ref
+          .read(authProvider.notifier)
+          .login(_enteredEmail, _enteredPassword);
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Text(
-            'Log in with email & password',
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-          const CustomTextFormField(
-            labelText: "Email",
-          ),
-          const CustomTextFormField(
-            labelText: "Password",
-            isPassword: true,
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 25),
-            child: ElevatedButton(
-              onPressed: () {
-                // Validate returns true if the form is valid, or false otherwise.
-                if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                }
-                Navigator.of(context).push(
-                    CustomPageRouteBuilder.getPageRouteBuilder(
-                        const ProductScreen()));
-              },
-              child: const Text('Log in'),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: TextButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Container(
-                      child: Text('Feature is coming soon!'),
+    error = ref.watch(authProvider)!.error;
+
+    return _isLoading
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                Text(
+                  'Log in with email & password',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                CustomTextFormField(
+                  labelText: "Email",
+                  validator: ValidationBuilder().email().maxLength(50).build(),
+                  onSaved: _onSaveEmail,
+                  enteredValue: _enteredEmail,
+                ),
+                CustomTextFormField(
+                  labelText: "Password",
+                  validator:
+                      ValidationBuilder().minLength(5).maxLength(20).build(),
+                  enteredValue: _enteredPassword,
+                  onSaved: _onSavePassword,
+                  isPassword: true,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Container(
+                    child: Text(
+                      error,
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
                     ),
                   ),
-                );
-              },
-              child: Text('Forgot Password'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await _onLoginTap();
+                      if (ref.watch(authProvider)!.user.id != '') {
+                        Navigator.of(context).push(
+                            CustomPageRouteBuilder.getPageRouteBuilder(
+                                const ProductScreen()));
+                      }
+                    },
+                    child: const Text('Log in'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: TextButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Container(
+                            child: Text('Feature is coming soon!'),
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text('Forgot Password'),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
-    );
+          );
   }
 }

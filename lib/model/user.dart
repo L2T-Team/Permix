@@ -1,11 +1,13 @@
 class User {
-  final String email;
-  final String name;
+  final String id;
+  final String? email;
+  final String? name;
   final bool isAdmin;
 
-  User({
-    required this.email,
-    required this.name,
+  const User({
+    required this.id,
+    this.email,
+    this.name,
     this.isAdmin = false,
   });
 }

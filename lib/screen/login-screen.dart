@@ -12,7 +12,6 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var statusBarHeight = MediaQuery.of(context).viewPadding.top;
 
     return Scaffold(
       body: SingleChildScrollView(

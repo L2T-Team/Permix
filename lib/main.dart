@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:permix/screen/admin-screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
@@ -18,7 +17,7 @@ import 'package:permix/util/constant.dart';
 import 'package:permix/util/routes.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const ProviderScope(child: MainApp()));
 }
 
 class MainApp extends StatelessWidget {
