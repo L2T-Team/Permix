@@ -4,7 +4,6 @@ import 'package:form_validator/form_validator.dart';
 import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
-import '../model/user.dart';
 import '../screen/product-screen.dart';
 import '../util/custom-page-route-builder.dart';
 
@@ -17,13 +16,6 @@ class LoginForm extends ConsumerStatefulWidget {
 
 class _LoginFormState extends ConsumerState<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-  final authProvider = StateNotifierProvider<AuthNotifier, UserData?>((ref) {
-    return AuthNotifier(
-      UserData(
-        user: const User(id: ''),
-      ),
-    );
-  });
 
   String _enteredEmail = '';
   String _enteredPassword = '';

@@ -22,3 +22,11 @@ class AuthNotifier extends StateNotifier<UserData> {
     }
   }
 }
+
+final authProvider = StateNotifierProvider<AuthNotifier, UserData?>((ref) {
+  return AuthNotifier(
+    UserData(
+      user: const User(id: ''),
+    ),
+  );
+});
