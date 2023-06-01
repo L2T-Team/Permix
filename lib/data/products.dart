@@ -11,6 +11,7 @@ var initialProducts = [
     ingredientMiddle:
         IngredientMiddle(middleIngredientType: MiddleIngredientType.green),
     ingredientTop: IngredientTop(topIngredientType: TopIngredientType.bergamot),
+    productType: ProductTypeValue.male,
   ),
   Product(
     id: 'init_2',
@@ -21,6 +22,7 @@ var initialProducts = [
     ingredientMiddle:
         IngredientMiddle(middleIngredientType: MiddleIngredientType.green),
     ingredientTop: IngredientTop(topIngredientType: TopIngredientType.bergamot),
+    productType: ProductTypeValue.unisex,
   ),
   Product(
     id: 'init_3',
@@ -31,6 +33,7 @@ var initialProducts = [
     ingredientMiddle:
         IngredientMiddle(middleIngredientType: MiddleIngredientType.green),
     ingredientTop: IngredientTop(topIngredientType: TopIngredientType.bergamot),
+    productType: ProductTypeValue.female,
   ),
   Product(
     id: 'init_4',
@@ -41,5 +44,6 @@ var initialProducts = [
     ingredientMiddle:
         IngredientMiddle(middleIngredientType: MiddleIngredientType.green),
     ingredientTop: IngredientTop(topIngredientType: TopIngredientType.bergamot),
+    productType: ProductTypeValue.unisex,
   ),
 ];

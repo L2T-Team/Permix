@@ -18,7 +18,7 @@ class Product {
     this.longevityRatio = 0.5,
     this.priceRatio = 0.5,
     this.sillageRatio = 0.5,
-    this.productType = ProductType.unisex,
+    this.productType = ProductTypeValue.unisex,
   });
 
   final String id;
@@ -29,7 +29,7 @@ class Product {
   double longevityRatio;
   double priceRatio;
   double sillageRatio;
-  ProductType productType;
+  ProductTypeValue productType;
   final IngredientTop ingredientTop;
   final IngredientMiddle ingredientMiddle;
   final IngredientBase ingredientBase;
@@ -217,4 +217,22 @@ enum TopIngredientType { bergamot, rum, jasmine, rosewood, mint }
 
 enum IngredientType { top, middle, base }
 
-enum ProductType { male, female, unisex }
+class ProductType {
+  ProductTypeValue typeValue;
+
+  ProductType(this.typeValue);
+
+  @override
+  String toString() {
+    switch (typeValue) {
+      case ProductTypeValue.male:
+        return 'Male';
+      case ProductTypeValue.female:
+        return 'Female';
+      case ProductTypeValue.unisex:
+        return 'Unisex';
+    }
+  }
+}
+
+enum ProductTypeValue { male, female, unisex }

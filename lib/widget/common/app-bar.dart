@@ -62,9 +62,14 @@ AppBar getAppBar(
                   visualDensity: const VisualDensity(
                       horizontal: VisualDensity.minimumDensity,
                       vertical: VisualDensity.minimumDensity),
-                  icon: const ImageIcon(
-                    AssetImage('assets/images/cart-icon.png'),
-                    color: PRIMARY_COLOR,
+                  icon: Badge(
+                    label: Text('99'),
+                    backgroundColor: BACKGROUND_COLOR,
+                    textColor: PRIMARY_COLOR,
+                    child: const ImageIcon(
+                      AssetImage('assets/images/cart-icon.png'),
+                      color: PRIMARY_COLOR,
+                    ),
                   ),
                   onPressed: isCartActive
                       ? () {

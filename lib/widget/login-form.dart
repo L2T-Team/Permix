@@ -100,7 +100,7 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                       if (ref.watch(authProvider)!.user.id != '') {
                         Navigator.of(context).push(
                             CustomPageRouteBuilder.getPageRouteBuilder(
-                                const ProductScreen()));
+                                  ProductScreen()));
                       }
                     },
                     child: const Text('Log in'),

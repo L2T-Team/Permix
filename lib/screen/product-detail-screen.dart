@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:permix/model/product.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/common/labeled-slider.dart';
 
 import '../util/constant.dart';
 
 class ProductDetailScreen extends StatelessWidget {
-  const ProductDetailScreen({Key? key}) : super(key: key);
+  const ProductDetailScreen({
+    Key? key,
+    required this.product,
+  }) : super(key: key);
 
-  final _longevitySliderVal = 0.5;
-  final _priceSliderVal = 0.4;
-  final _sillageSliderVal = 0.3;
+  final Product product;
 
   List<TextSpan> _buildNoteTextSpan(
       BuildContext context, String note, String description) {
@@ -40,14 +42,16 @@ class ProductDetailScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'PERFUME',
+                product is CustomizeProduct
+                    ? 'Customized Perfume'
+                    : 'Permix\'s Collection',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 30.0),
                   child: Image.asset(
-                    '$IMAGE_PATH/products/2.png',
+                    product.imgUrl,
                     fit: BoxFit.contain,
                     width: size.width / 3,
                   ),
@@ -56,12 +60,12 @@ class ProductDetailScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
-                  '2.999k',
+                  '${product.price.toStringAsFixed(0)}k',
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),
               SizedBox(height: 10),
-              Text('Forest Night'),
+              Text(product.name),
               SizedBox(height: 15),
               Divider(
                 thickness: 1,
@@ -71,26 +75,21 @@ class ProductDetailScreen extends StatelessWidget {
               SizedBox(height: 15),
               Text.rich(
                 style: Theme.of(context).textTheme.bodySmall,
-                TextSpan(
-                    text:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-                        ' Maecenas cursus tortor sit amet volutpat euismod.'
-                        ' Phasellus molestie cursus finibus.'
-                        ' Sed imperdiet porttitor lobortis.\n',
-                    children: [
-                      ..._buildNoteTextSpan(context, 'Top notes',
-                          'Mint, Grapefruit, Bergamot, Anise\n'),
-                      ..._buildNoteTextSpan(context, 'Middle notes',
-                          'Mint, Green note, Cassis, Rose\n'),
-                      ..._buildNoteTextSpan(
-                          context, 'Base notes', 'White musk'),
-                    ]),
+                TextSpan(text: '${product.description}\n', children: [
+                  ..._buildNoteTextSpan(context, 'Top notes',
+                      '${product.ingredientTop.toString()}\n'),
+                  ..._buildNoteTextSpan(context, 'Middle notes',
+                      '${product.ingredientMiddle.toString()}\n'),
+                  ..._buildNoteTextSpan(
+                      context, 'Base notes', product.ingredientBase.toString()),
+                ]),
               ),
               SizedBox(height: 20),
               LabeledSlider(
-                  label: 'Longevity', currentValue: _longevitySliderVal),
-              LabeledSlider(label: 'Price', currentValue: _priceSliderVal),
-              LabeledSlider(label: 'Sillage', currentValue: _sillageSliderVal),
+                  label: 'Longevity', currentValue: product.longevityRatio),
+              LabeledSlider(label: 'Price', currentValue: product.priceRatio),
+              LabeledSlider(
+                  label: 'Sillage', currentValue: product.sillageRatio),
               Expanded(
                 child: Align(
                   child: TextButton(

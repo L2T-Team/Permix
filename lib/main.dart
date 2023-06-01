@@ -113,21 +113,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginScreen(),
-      routes: {
-        PermixRoutes.cartScreen: (_) => const CartScreen(),
-        PermixRoutes.customizeScreen: (_) => const CustomizeScreen(),
-        PermixRoutes.loginScreen: (_) => const LoginScreen(),
-        PermixRoutes.menuScreen: (_) => const MenuScreen(),
-        PermixRoutes.paymentScreen: (_) => const PaymentScreen(),
-        PermixRoutes.productDetailScreen: (_) => const ProductDetailScreen(),
-        PermixRoutes.productScreen: (_) => const ProductScreen(),
-        PermixRoutes.shippingScreen: (_) => const ShippingScreen(),
-        PermixRoutes.signUpScreen: (_) => const SignupScreen(),
-        PermixRoutes.orderScreen: (_) => const OrderScreen(),
-        PermixRoutes.orderDetailScreen: (_) => const OrderDetailScreen(),
-        PermixRoutes.splashScreen: (_) => const HomeScreen(),
-      },
+      home: ProductScreen(),
     );
   }
 }
