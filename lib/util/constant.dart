@@ -8,3 +8,4 @@ const double DEFAULT_HORIZONTAL_PADDING = 25;
 const double DEFAULT_BUTTON_HEIGHT = 30;
 
 const String IMAGE_PATH = 'assets/images';
+const String INGRE_PATH = '$IMAGE_PATH/products/pictures';
