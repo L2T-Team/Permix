@@ -5,8 +5,9 @@ import 'package:permix/widget/item/list-item.dart';
 
 import '../../provider/cart-provider.dart';
 import '../../util/constant.dart';
+import '../common/custom-confirm-dialog.dart';
 
-class CartItem extends ConsumerStatefulWidget {
+class CartItem extends ConsumerWidget {
   const CartItem({
     Key? key,
     required this.cartProduct,
@@ -15,28 +16,24 @@ class CartItem extends ConsumerStatefulWidget {
   final CartProduct cartProduct;
 
   @override
-  ConsumerState<CartItem> createState() => _CartItemState();
-}
-
-class _CartItemState extends ConsumerState<CartItem> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListItem(
       height: 110,
       leading: Row(
         children: [
           Checkbox(
-            value: widget.cartProduct.isSelected,
+            value: /*widget.*/ cartProduct.isSelected,
             onChanged: (val) {
-              setState(() {
-                ref
-                    .read(cartProvider.notifier)
-                    .toggleSelect(widget.cartProduct.productId, val!);
-              });
+              // setState(() {
+              ref
+                  .read(cartProvider.notifier)
+                  .toggleSelect(/*widget.*/ cartProduct.productId, val!);
+              // });
             },
           ),
           Image.asset(
-            widget.cartProduct.imgUrl,
+            /*widget.*/
+            cartProduct.imgUrl,
             height: 70,
             width: 50,
           ),
@@ -50,13 +47,26 @@ class _CartItemState extends ConsumerState<CartItem> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                if (cartProduct.amount <= 1) {
+                  showConfirmDialog(
+                    context: context,
+                    onYesHandler: () => ref
+                        .read(cartProvider.notifier)
+                        .clearProduct(cartProduct.productId),
+                  );
+                } else {
+                  ref
+                      .read(cartProvider.notifier)
+                      .decreaseAmount(cartProduct.productId);
+                }
+              },
               padding: EdgeInsets.zero,
               visualDensity: const VisualDensity(
                   horizontal: VisualDensity.minimumDensity,
                   vertical: VisualDensity.minimumDensity),
               // alignment: Alignment.topCenter,
-              icon: Icon(Icons.remove),
+              icon: const Icon(Icons.remove),
               color: PRIMARY_COLOR,
             ),
             Container(
@@ -69,27 +79,31 @@ class _CartItemState extends ConsumerState<CartItem> {
               width: 30,
               alignment: Alignment.center,
               child: Text(
-                widget.cartProduct.amount.toString(),
+                /*widget.*/
+                cartProduct.amount.toString(),
                 textAlign: TextAlign.center,
                 style:
                     Theme.of(context).textTheme.bodySmall!.copyWith(height: 1),
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                ref
+                    .read(cartProvider.notifier)
+                    .increaseAmount(/*widget.*/ cartProduct.productId);
+              },
               padding: EdgeInsets.zero,
               visualDensity: const VisualDensity(
                   horizontal: VisualDensity.minimumDensity,
                   vertical: VisualDensity.minimumDensity),
-              icon: Icon(Icons.add),
+              icon: const Icon(Icons.add),
               color: PRIMARY_COLOR,
             )
           ],
         ),
       ),
-      title: widget.cartProduct.name,
-      subTitle:
-          '${(widget.cartProduct.indiePrice * widget.cartProduct.amount).toStringAsFixed(0)}k',
+      title: /*widget.*/ cartProduct.name,
+      subTitle: '${/*widget.*/ cartProduct.indiePrice.toStringAsFixed(0)}k',
     );
   }
 }

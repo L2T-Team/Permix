@@ -12,14 +12,22 @@ import 'package:permix/widget/item/cart-item.dart';
 import '../model/cart-product.dart';
 import '../util/custom-page-route-builder.dart';
 
-class CartScreen extends ConsumerStatefulWidget {
+class CartScreen extends ConsumerWidget {
   const CartScreen({Key? key}) : super(key: key);
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CartScreenState();
-}
+//   @override
+//   ConsumerState<ConsumerStatefulWidget> createState() => _CartScreenState();
+// }
+//
+// class _CartScreenState extends ConsumerState<CartScreen> {
+  // double _calcTotalPrice(Map<String, CartProduct> cartProducts) {
+  //   var total = 0.0;
+  //   cartProducts.forEach((key, value) {
+  //     total += value.amount * value.indiePrice;
+  //   });
+  //   return total;
+  // }
 
-class _CartScreenState extends ConsumerState<CartScreen> {
   double _calcTotalPrice(List<CartProduct> cartProducts) {
     return cartProducts.fold(
       0.0,
@@ -29,7 +37,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
     var cart = ref.watch(cartProvider);
@@ -48,7 +56,7 @@ class _CartScreenState extends ConsumerState<CartScreen> {
               'MY CART',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             if (cartProducts.isEmpty)
@@ -69,9 +77,9 @@ class _CartScreenState extends ConsumerState<CartScreen> {
                     color: Colors.transparent,
                     child: InkWell(
                       onTap: () {
-                        setState(() {
+                        // setState(() {
                           ref.read(cartProvider.notifier).selectAll();
-                        });
+                        // });
                       },
                       child: Text('Select All'),
                     ),

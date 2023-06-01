@@ -15,4 +15,12 @@ class CartProduct {
     this.isSelected = false,
     this.amount = 1,
   });
+
+  CartProduct.clone(CartProduct oldProd)
+      : productId = oldProd.productId,
+        name = oldProd.name,
+        indiePrice = oldProd.indiePrice,
+        imgUrl = oldProd.imgUrl,
+        amount = oldProd.amount,
+        isSelected = oldProd.isSelected;
 }

@@ -32,9 +32,29 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
   }
 
   void selectAll() {
-    for (var element in state.entries) {
+    var newState = Map<String, CartProduct>.from(state);
+    for (var element in newState.entries) {
       element.value.isSelected = true;
     }
+    state = newState;
+  }
+
+  void increaseAmount(String prodId) {
+    var newCartProd = CartProduct.clone(state[prodId]!);
+    newCartProd.amount++;
+    state = {...state, prodId: newCartProd};
+  }
+
+  void decreaseAmount(String prodId) {
+    var newCartProd = CartProduct.clone(state[prodId]!);
+    newCartProd.amount--;
+    state = {...state, prodId: newCartProd};
+  }
+
+  void clearProduct(String prodId) {
+    var newState = Map<String, CartProduct>.from(state);
+    newState.remove(prodId);
+    state = newState;
   }
 }
 
