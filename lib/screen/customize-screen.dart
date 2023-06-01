@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/data/ingredients.dart';
 import 'package:permix/model/enum.dart';
+import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/characteristic-selection-list.dart';
 import 'package:permix/widget/ingredient-selection-list.dart';
+
+import '../model/product.dart';
+import '../provider/customize-provider.dart';
+import '../util/custom-page-route-builder.dart';
 
 class CustomizeScreen extends StatelessWidget {
   const CustomizeScreen({Key? key}) : super(key: key);
@@ -32,9 +39,18 @@ class CustomizeScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              IngredientSelectionList(),
-              IngredientSelectionList(),
-              IngredientSelectionList(),
+              IngredientSelectionList(
+                ingredientType: IngredientType.top,
+                ingredients: ingredientTopList,
+              ),
+              IngredientSelectionList(
+                ingredientType: IngredientType.middle,
+                ingredients: ingredientMiddleList,
+              ),
+              IngredientSelectionList(
+                ingredientType: IngredientType.base,
+                ingredients: ingredientBaseList,
+              ),
               CharacteristicSelectionList(
                 label: 'Choose the concentration',
                 values: Concentration.values.map((e) => e.name).toList(),
@@ -55,7 +71,20 @@ class CustomizeScreen extends StatelessWidget {
                     },
                     child: Text('Back'),
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text('Confirm'))
+                  Consumer(builder: (context, ref, _) {
+                    return ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          CustomPageRouteBuilder.getPageRouteBuilder(
+                            ProductDetailScreen(
+                              product: ref.watch(customizeProvider),
+                            ),
+                          ),
+                        );
+                      },
+                      child: const Text('Confirm'),
+                    );
+                  })
                 ],
               )
             ],

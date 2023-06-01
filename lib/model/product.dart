@@ -1,14 +1,18 @@
 import 'package:permix/model/enum.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/helper.dart';
 
 class Product {
   Product({
     required this.id,
     required this.name,
     required this.imgUrl,
-    required this.ingredientBase,
-    required this.ingredientMiddle,
-    required this.ingredientTop,
+    this.ingredientBase =
+        const IngredientBase(baseIngredientType: BaseIngredientType.musk),
+    this.ingredientTop =
+        const IngredientTop(topIngredientType: TopIngredientType.bergamot),
+    this.ingredientMiddle = const IngredientMiddle(
+        middleIngredientType: MiddleIngredientType.green),
     this.price = 0.0,
     this.description =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. '
@@ -30,9 +34,9 @@ class Product {
   double priceRatio;
   double sillageRatio;
   ProductTypeValue productType;
-  final IngredientTop ingredientTop;
-  final IngredientMiddle ingredientMiddle;
-  final IngredientBase ingredientBase;
+  IngredientTop ingredientTop;
+  IngredientMiddle ingredientMiddle;
+  IngredientBase ingredientBase;
 }
 
 class CustomizeProduct extends Product {
@@ -45,17 +49,59 @@ class CustomizeProduct extends Product {
             ' a burst of energy, followed by the fresh '
             'and verdant green notes that give the perfume '
             'its natural and earthy character.',
-    required this.capacity,
-    required this.concentration,
+    this.capacity = const Capacity(CapacityValues.ten),
+    this.concentration = Concentration.EDP,
     required super.id,
     required super.name,
     required super.imgUrl,
-    required super.ingredientBase,
-    required super.ingredientMiddle,
-    required super.ingredientTop,
   }) {
     price = getPrice();
   }
+
+  Capacity capacity;
+  Concentration concentration;
+
+  CustomizeProduct.empty()
+      : capacity = const Capacity(CapacityValues.ten),
+        concentration = Concentration.EDP,
+        super(
+          id: DateTime.now().toString(),
+          name: generateRandomPerfumeName(),
+          imgUrl: '$IMAGE_PATH/products/1.png',
+          price: 200,
+          description:
+              'The composition of this perfume is carefully crafted to create '
+              'a harmonious balance of top, middle, and base notes that'
+              ' work together to create a unique and memorable scent.'
+              ' The bright and zesty grapefruit top note provides'
+              ' a burst of energy, followed by the fresh '
+              'and verdant green notes that give the perfume '
+              'its natural and earthy character.',
+          ingredientTop: const IngredientTop(
+              topIngredientType: TopIngredientType.bergamot),
+          ingredientMiddle: const IngredientMiddle(
+              middleIngredientType: MiddleIngredientType.cedar),
+          ingredientBase:
+              const IngredientBase(baseIngredientType: BaseIngredientType.musk),
+        );
+
+  CustomizeProduct.clone(CustomizeProduct oldProd)
+      : capacity = oldProd.capacity,
+        concentration = oldProd.concentration,
+        super(
+          id: oldProd.id,
+          imgUrl: oldProd.imgUrl,
+          name: oldProd.name,
+          description: oldProd.description,
+          price: oldProd.price,
+          longevityRatio: oldProd.longevityRatio,
+          priceRatio: oldProd.priceRatio,
+          productType: oldProd.productType,
+          sillageRatio: oldProd.sillageRatio,
+          ingredientTop: oldProd.ingredientTop,
+          ingredientMiddle: oldProd.ingredientMiddle,
+          ingredientBase: oldProd.ingredientBase,
+        );
 
   double getPrice() {
     switch (capacity.capacityVal) {
@@ -67,30 +113,40 @@ class CustomizeProduct extends Product {
         return 300;
     }
   }
-
-  final Capacity capacity;
-  final Concentration concentration;
 }
 
 abstract class Ingredient {
-  Ingredient({
+  const Ingredient({
     required this.ingredientType,
     this.ingreImgUrl = '',
   });
 
-  late String ingreImgUrl;
+  final String ingreImgUrl;
   final IngredientType ingredientType;
+
+  static String toLowerString(IngredientType ingredientType) {
+    switch (ingredientType) {
+      case IngredientType.top:
+        return 'top note';
+      case IngredientType.middle:
+        return 'middle note';
+      case IngredientType.base:
+        return 'base note';
+    }
+  }
 }
 
 class IngredientBase extends Ingredient {
-  IngredientBase({required this.baseIngredientType})
-      : super(ingredientType: IngredientType.base) {
-    ingreImgUrl = _getIngreImgUrl();
-  }
+  const IngredientBase(
+      {required this.baseIngredientType, String ingreImgUrl = ''})
+      : super(
+          ingredientType: IngredientType.base,
+          ingreImgUrl: ingreImgUrl,
+        );
 
   final BaseIngredientType baseIngredientType;
 
-  String _getIngreImgUrl() {
+  static String getIngreImgUrl(BaseIngredientType baseIngredientType) {
     switch (baseIngredientType) {
       case BaseIngredientType.musk:
         return '$INGRE_PATH/Musk.jpg';
@@ -119,14 +175,16 @@ class IngredientBase extends Ingredient {
 }
 
 class IngredientMiddle extends Ingredient {
-  IngredientMiddle({required this.middleIngredientType})
-      : super(ingredientType: IngredientType.middle) {
-    ingreImgUrl = _getIngreImgUrl();
-  }
+  const IngredientMiddle(
+      {required this.middleIngredientType, String ingreImgUrl = ''})
+      : super(
+          ingredientType: IngredientType.middle,
+          ingreImgUrl: ingreImgUrl,
+        );
 
   final MiddleIngredientType middleIngredientType;
 
-  String _getIngreImgUrl() {
+  static String getIngreImgUrl(MiddleIngredientType middleIngredientType) {
     var fileNameWithoutExt = '';
     switch (middleIngredientType) {
       case MiddleIngredientType.cedar:
@@ -162,14 +220,17 @@ class IngredientMiddle extends Ingredient {
 }
 
 class IngredientTop extends Ingredient {
-  IngredientTop({required this.topIngredientType})
-      : super(ingredientType: IngredientType.top) {
-    ingreImgUrl = _getIngreImgUrl();
-  }
+  const IngredientTop({
+    required this.topIngredientType,
+    String ingreImgUrl = '',
+  }) : super(
+          ingredientType: IngredientType.top,
+          ingreImgUrl: ingreImgUrl,
+        );
 
   final TopIngredientType topIngredientType;
 
-  String _getIngreImgUrl() {
+  static String getIngreImgUrl(TopIngredientType topIngredientType) {
     var fileName = '';
     switch (topIngredientType) {
       case TopIngredientType.bergamot:

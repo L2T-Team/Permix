@@ -5,17 +5,30 @@ enum CapacityValues { five, ten, twenty }
 class Capacity {
   final CapacityValues capacityVal;
 
-  Capacity(this.capacityVal);
+  const Capacity(this.capacityVal);
+
+  static CapacityValues? toCapacityValue(String str) {
+    switch (str) {
+      case '5ml':
+        return CapacityValues.five;
+      case '10ml':
+        return CapacityValues.ten;
+      case '20ml':
+        return CapacityValues.twenty;
+      default:
+        return null;
+    }
+  }
 
   @override
   String toString() {
     switch (capacityVal) {
       case CapacityValues.five:
         return '5ml';
-      case CapacityValues.ten:
-        return '10ml';
       case CapacityValues.twenty:
         return '20ml';
+      case CapacityValues.ten:
+        return '10ml';
     }
   }
 }

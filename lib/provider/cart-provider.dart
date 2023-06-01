@@ -25,10 +25,9 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
   }
 
   void toggleSelect(String prodId, bool val) {
-    state.update(prodId, (value) {
-      value.isSelected = val;
-      return value;
-    });
+    var newCartProd = CartProduct.clone(state[prodId]!);
+    newCartProd.isSelected = val;
+    state = {...state, prodId: newCartProd};
   }
 
   void selectAll() {

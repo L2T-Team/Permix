@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/provider/customize-provider.dart';
 import 'package:permix/util/constant.dart';
 
 import '../model/enum.dart';
@@ -19,13 +21,13 @@ class CharacteristicSelectionList extends StatefulWidget {
 
 class _CharacteristicSelectionListState
     extends State<CharacteristicSelectionList> {
-  late String _currentValue;
+  String _currentValue = '10ml';
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _currentValue = widget.values[0];
+    _currentValue = widget.values[1];
   }
 
   @override
@@ -37,25 +39,30 @@ class _CharacteristicSelectionListState
           widget.label,
           style: Theme.of(context).textTheme.bodySmall,
         ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: widget.values
-              .map(
-                (val) => Expanded(
-                  child: LabeledRadio(
-                    label: val,
-                    groupValue: _currentValue,
-                    value: val,
-                    onChanged: (value) {
-                      setState(() {
-                        _currentValue = value;
-                      });
-                    },
+        Consumer(builder: (context, ref, _) {
+          return Row(
+            mainAxisSize: MainAxisSize.max,
+            children: widget.values
+                .map(
+                  (val) => Expanded(
+                    child: LabeledRadio(
+                      label: val,
+                      groupValue: _currentValue,
+                      value: val,
+                      onChanged: (value) {
+                        ref
+                            .read(customizeProvider.notifier)
+                            .changeCapacity(value);
+                        setState(() {
+                          _currentValue = value;
+                        });
+                      },
+                    ),
                   ),
-                ),
-              )
-              .toList(),
-        )
+                )
+                .toList(),
+          );
+        })
       ],
     );
   }
@@ -77,8 +84,6 @@ class LabeledRadio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return InkWell(
       onTap: () {
         if (value != groupValue) {

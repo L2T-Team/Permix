@@ -113,7 +113,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: ProductScreen(),
+      home: CustomizeScreen(),
     );
   }
 }
