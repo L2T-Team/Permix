@@ -1,20 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/provider/cart-provider.dart';
 import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/common/app-bar.dart';
+import 'package:permix/widget/common/my-back-button.dart';
 import 'package:permix/widget/item/cart-item.dart';
-import 'package:permix/widget/common/custom-text-form-field.dart';
 
+import '../model/cart-product.dart';
 import '../util/custom-page-route-builder.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends ConsumerState<CartScreen> {
+  double _calcTotalPrice(List<CartProduct> cartProducts) {
+    return cartProducts.fold(
+      0.0,
+      (previousValue, element) =>
+          previousValue + element.amount * element.indiePrice,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
+    var cart = ref.watch(cartProvider);
+    var cartProducts = cart.entries.map((e) => e.value).toList();
     return Scaffold(
       appBar: getAppBar(context, isCartActive: false),
       body: Container(
@@ -32,32 +51,52 @@ class CartScreen extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  '2 Items',
-                  style: Theme.of(context).textTheme.bodySmall,
+            if (cartProducts.isEmpty)
+              const Expanded(
+                child: Center(
+                  child: Text('Your Cart is empty, buy more then!'),
                 ),
-                Text('Select All'),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5, bottom: 10),
-              child: Divider(
-                thickness: 1,
-                height: 6,
-                color: Theme.of(context).colorScheme.secondary,
+              )
+            else ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    '${cart.values.length} Items',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          ref.read(cartProvider.notifier).selectAll();
+                        });
+                      },
+                      child: Text('Select All'),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (_, index) {
-                    return CartItem();
-                  }),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, bottom: 10),
+                child: Divider(
+                  thickness: 1,
+                  height: 6,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: cart.values.length,
+                    itemBuilder: (_, index) {
+                      return CartItem(
+                        cartProduct: cartProducts[index],
+                      );
+                    }),
+              ),
+            ],
             SizedBox(height: 15),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -89,7 +128,7 @@ class CartScreen extends StatelessWidget {
                   children: [
                     Text('Total Amount'),
                     Text(
-                      '5.000k',
+                      '${getThousandSeparatedString(_calcTotalPrice(cartProducts))}k',
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
@@ -107,24 +146,23 @@ class CartScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Back'),
-                      ),
+                      child: MyBackButton(),
                     ),
                     SizedBox(
                       width: 10,
                     ),
-                    Flexible(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                              CustomPageRouteBuilder.getPageRouteBuilder(
-                                  PaymentScreen()));
-                        },
-                        child: Text('Purchase'),
-                      ),
-                    ),
+                    cartProducts.isEmpty
+                        ? const SizedBox.shrink()
+                        : Flexible(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                    CustomPageRouteBuilder.getPageRouteBuilder(
+                                        PaymentScreen()));
+                              },
+                              child: Text('Purchase'),
+                            ),
+                          ),
                     SizedBox(
                       width: 10,
                     ),

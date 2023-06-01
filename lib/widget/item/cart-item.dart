@@ -1,26 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/model/cart-product.dart';
 import 'package:permix/widget/item/list-item.dart';
 
+import '../../provider/cart-provider.dart';
 import '../../util/constant.dart';
 
-class CartItem extends StatefulWidget {
-  const CartItem({Key? key}) : super(key: key);
+class CartItem extends ConsumerStatefulWidget {
+  const CartItem({
+    Key? key,
+    required this.cartProduct,
+  }) : super(key: key);
+
+  final CartProduct cartProduct;
 
   @override
-  State<CartItem> createState() => _CartItemState();
+  ConsumerState<CartItem> createState() => _CartItemState();
 }
 
-class _CartItemState extends State<CartItem> {
+class _CartItemState extends ConsumerState<CartItem> {
   @override
   Widget build(BuildContext context) {
     return ListItem(
       height: 110,
       leading: Row(
         children: [
-          Checkbox(value: true, onChanged: (val) {}),
+          Checkbox(
+            value: widget.cartProduct.isSelected,
+            onChanged: (val) {
+              setState(() {
+                ref
+                    .read(cartProvider.notifier)
+                    .toggleSelect(widget.cartProduct.productId, val!);
+              });
+            },
+          ),
           Image.asset(
-            '$IMAGE_PATH/products/1.png',
+            widget.cartProduct.imgUrl,
             height: 70,
+            width: 50,
           ),
         ],
       ),
@@ -51,7 +69,7 @@ class _CartItemState extends State<CartItem> {
               width: 30,
               alignment: Alignment.center,
               child: Text(
-                '99',
+                widget.cartProduct.amount.toString(),
                 textAlign: TextAlign.center,
                 style:
                     Theme.of(context).textTheme.bodySmall!.copyWith(height: 1),
@@ -69,8 +87,9 @@ class _CartItemState extends State<CartItem> {
           ],
         ),
       ),
-      title: 'Secret Whiadfasdfadadsfaasdasdadasddassdfs sdfssper',
-      subTitle: '2.999k',
+      title: widget.cartProduct.name,
+      subTitle:
+          '${(widget.cartProduct.indiePrice * widget.cartProduct.amount).toStringAsFixed(0)}k',
     );
   }
 }

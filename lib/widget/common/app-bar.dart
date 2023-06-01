@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/menu-screen.dart';
 
+import '../../provider/cart-provider.dart';
 import '../../util/constant.dart';
 import '../../util/custom-page-route-builder.dart';
 
@@ -63,7 +65,13 @@ AppBar getAppBar(
                       horizontal: VisualDensity.minimumDensity,
                       vertical: VisualDensity.minimumDensity),
                   icon: Badge(
-                    label: Text('99'),
+                    label: Consumer(
+                      builder: (context, ref, _) {
+                        var count = ref.watch(cartProvider).values.length;
+
+                        return Text(count.toString());
+                      },
+                    ),
                     backgroundColor: BACKGROUND_COLOR,
                     textColor: PRIMARY_COLOR,
                     child: const ImageIcon(

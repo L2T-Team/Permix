@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/model/product.dart';
+import 'package:permix/provider/cart-provider.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/common/labeled-slider.dart';
 
@@ -33,7 +35,7 @@ class ProductDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          height: size.height,
+          height: size.height - kToolbarHeight,
           color: Theme.of(context).colorScheme.background,
           padding: const EdgeInsets.only(
               top: 20,
@@ -91,12 +93,37 @@ class ProductDetailScreen extends StatelessWidget {
               LabeledSlider(
                   label: 'Sillage', currentValue: product.sillageRatio),
               Expanded(
-                child: Align(
-                  child: TextButton(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
-                      child: Text('Back')),
+                      child: Text('Back'),
+                    ),
+                    Consumer(
+                      builder: (context, ref, _) {
+                        return ElevatedButton(
+                          onPressed: () {
+                            var isAdded = ref
+                                .read(cartProvider.notifier)
+                                .addToCart(product);
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(isAdded
+                                    ? 'Added ${product.name} to Cart!'
+                                    : '${product.name} is in Cart already!'),
+                              ),
+                            );
+                          },
+                          child: Text('Add to Cart'),
+                        );
+                      },
+                    )
+                  ],
                 ),
               )
             ],
