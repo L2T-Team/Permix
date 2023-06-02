@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:permix/model/cart-product.dart';
 import 'package:permix/model/product.dart';
 import 'package:riverpod/riverpod.dart';
@@ -54,6 +55,26 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
     var newState = Map<String, CartProduct>.from(state);
     newState.remove(prodId);
     state = newState;
+  }
+
+  int countSelected() {
+    return state.values.fold(
+        0,
+        (previousValue, element) =>
+            previousValue += element.isSelected ? 1 : 0);
+  }
+
+  double getTotalSelectedPrice() {
+    return state.values.fold(
+      0.0,
+      (previousValue, element) => previousValue +=
+          element.isSelected ? element.amount * element.indiePrice : 0.0,
+    );
+  }
+
+  String getOrderName() {
+    final formatter = DateFormat('yyyyMMdd_HHmmss');
+    return 'order_${formatter.format(DateTime.now())}';
   }
 }
 

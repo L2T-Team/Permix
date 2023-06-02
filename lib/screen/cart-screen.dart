@@ -78,7 +78,7 @@ class CartScreen extends ConsumerWidget {
                     child: InkWell(
                       onTap: () {
                         // setState(() {
-                          ref.read(cartProvider.notifier).selectAll();
+                        ref.read(cartProvider.notifier).selectAll();
                         // });
                       },
                       child: Text('Select All'),
@@ -136,7 +136,7 @@ class CartScreen extends ConsumerWidget {
                   children: [
                     Text('Total Amount'),
                     Text(
-                      '${getThousandSeparatedString(_calcTotalPrice(cartProducts))}k',
+                      '${ref.watch(cartProvider.notifier).getTotalSelectedPrice().toStringAsFixed(0)}k',
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
@@ -164,6 +164,18 @@ class CartScreen extends ConsumerWidget {
                         : Flexible(
                             child: ElevatedButton(
                               onPressed: () {
+                                var isSelected = ref
+                                    .watch(cartProvider.notifier)
+                                    .countSelected();
+                                if (isSelected <= 0) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'You should select at least 1 item to purchase!'),
+                                    ),
+                                  );
+                                  return;
+                                }
                                 Navigator.of(context).push(
                                     CustomPageRouteBuilder.getPageRouteBuilder(
                                         PaymentScreen()));

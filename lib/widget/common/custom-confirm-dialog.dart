@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 void showConfirmDialog({
   required BuildContext context,
   required Function onYesHandler,
+  String title = 'Sure to remove?',
   Function? onNoHandler,
 }) async {
   await showDialog(
@@ -10,7 +11,7 @@ void showConfirmDialog({
     builder: (BuildContext ctx) {
       return AlertDialog(
         title: Text(
-          'Sure to remove?',
+          title,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         backgroundColor: Theme.of(context).colorScheme.background,

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/model/cart-product.dart';
 import 'package:permix/model/enum.dart';
 import 'package:permix/model/product.dart';
 
@@ -24,7 +26,7 @@ class CustomizeNotifier extends StateNotifier<CustomizeProduct> {
     state = newProd;
   }
 
- /* void changeConcentration(Concentration concentration) {
+  /* void changeConcentration(Concentration concentration) {
     if (state.concentration != concentration) {
       var newProd = CustomizeProduct.clone(state);
       newProd.concentration = concentration;
@@ -42,6 +44,35 @@ class CustomizeNotifier extends StateNotifier<CustomizeProduct> {
       newProd.price = newProd.getPrice();
       state = newProd;
     }
+  }
+
+  Future<String> addToFirestore() async {
+    late CustomizeProduct newProd;
+
+    await FirebaseFirestore.instance.collection('customize_products').add(
+      <String, dynamic>{
+        'name': state.name,
+        'imgUrl': state.imgUrl,
+        'price': state.price,
+        'description': state.description,
+        'longevityRatio': state.longevityRatio,
+        'priceRatio': state.priceRatio,
+        'sillageRatio': state.sillageRatio,
+        'ingredientTop': state.ingredientTop.toString(),
+        'ingredientMiddle': state.ingredientMiddle.toString(),
+        'ingredientBase': state.ingredientBase.toString(),
+        'capacity': state.capacity.toString(),
+        'concentration': state.concentration.name,
+      },
+    ).then((docRef) {
+      newProd = CustomizeProduct.cloneAssignId(state, docRef.id);
+    }).catchError((error) {
+      print('error');
+    });
+
+    state = CustomizeProduct.empty();
+
+    return 'newProd.id';
   }
 }
 

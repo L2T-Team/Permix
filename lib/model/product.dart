@@ -103,6 +103,24 @@ class CustomizeProduct extends Product {
           ingredientBase: oldProd.ingredientBase,
         );
 
+  CustomizeProduct.cloneAssignId(CustomizeProduct oldProd, String id)
+      : capacity = oldProd.capacity,
+        concentration = oldProd.concentration,
+        super(
+          id: id,
+          imgUrl: oldProd.imgUrl,
+          name: oldProd.name,
+          description: oldProd.description,
+          price: oldProd.price,
+          longevityRatio: oldProd.longevityRatio,
+          priceRatio: oldProd.priceRatio,
+          productType: oldProd.productType,
+          sillageRatio: oldProd.sillageRatio,
+          ingredientTop: oldProd.ingredientTop,
+          ingredientMiddle: oldProd.ingredientMiddle,
+          ingredientBase: oldProd.ingredientBase,
+        );
+
   double getPrice() {
     switch (capacity.capacityVal) {
       case CapacityValues.five:

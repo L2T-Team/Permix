@@ -2,18 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/model/product.dart';
 import 'package:permix/provider/cart-provider.dart';
+import 'package:permix/provider/customize-provider.dart';
+import 'package:permix/widget/add-customize-product-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
+import 'package:permix/widget/common/custom-confirm-dialog.dart';
 import 'package:permix/widget/common/labeled-slider.dart';
 
 import '../util/constant.dart';
 
-class ProductDetailScreen extends StatelessWidget {
+class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({
     Key? key,
     required this.product,
   }) : super(key: key);
 
   final Product product;
+
+  @override
+  State<ProductDetailScreen> createState() => _ProductDetailScreenState();
+}
+
+class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  var _isLoading = false;
 
   List<TextSpan> _buildNoteTextSpan(
       BuildContext context, String note, String description) {
@@ -45,7 +55,7 @@ class ProductDetailScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              product is CustomizeProduct
+              widget.product is CustomizeProduct
                   ? 'Customized Perfume'
                   : 'Permix\'s Collection',
               style: Theme.of(context).textTheme.headlineLarge,
@@ -53,7 +63,7 @@ class ProductDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30.0),
               child: Image.asset(
-                product.imgUrl,
+                widget.product.imgUrl,
                 fit: BoxFit.contain,
                 width: size.width / 3,
                 height: 80,
@@ -62,12 +72,12 @@ class ProductDetailScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Text(
-                '${product.price.toStringAsFixed(0)}k',
+                '${widget.product.price.toStringAsFixed(0)}k',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
             SizedBox(height: 10),
-            Text(product.name),
+            Text(widget.product.name),
             SizedBox(height: 15),
             Divider(
               thickness: 1,
@@ -77,20 +87,23 @@ class ProductDetailScreen extends StatelessWidget {
             SizedBox(height: 15),
             Text.rich(
               style: Theme.of(context).textTheme.bodySmall,
-              TextSpan(text: '${product.description}\n', children: [
+              TextSpan(text: '${widget.product.description}\n', children: [
                 ..._buildNoteTextSpan(context, 'Top notes',
-                    '${product.ingredientTop.toString()}\n'),
+                    '${widget.product.ingredientTop.toString()}\n'),
                 ..._buildNoteTextSpan(context, 'Middle notes',
-                    '${product.ingredientMiddle.toString()}\n'),
-                ..._buildNoteTextSpan(
-                    context, 'Base notes', product.ingredientBase.toString()),
+                    '${widget.product.ingredientMiddle.toString()}\n'),
+                ..._buildNoteTextSpan(context, 'Base notes',
+                    widget.product.ingredientBase.toString()),
               ]),
             ),
             SizedBox(height: 20),
             LabeledSlider(
-                label: 'Longevity', currentValue: product.longevityRatio),
-            LabeledSlider(label: 'Price', currentValue: product.priceRatio),
-            LabeledSlider(label: 'Sillage', currentValue: product.sillageRatio),
+                label: 'Longevity',
+                currentValue: widget.product.longevityRatio),
+            LabeledSlider(
+                label: 'Price', currentValue: widget.product.priceRatio),
+            LabeledSlider(
+                label: 'Sillage', currentValue: widget.product.sillageRatio),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 30),
               child: Row(
@@ -107,15 +120,24 @@ class ProductDetailScreen extends StatelessWidget {
                     builder: (context, ref, _) {
                       return ElevatedButton(
                         onPressed: () {
+                          if (widget.product is CustomizeProduct) {
+                            showDialog(
+                              context: context,
+                              builder: (ctx) => AddCustomizeProductDialog(
+                                cusProduct: widget.product as CustomizeProduct,
+                              ),
+                            );
+                          }
                           var isAdded = ref
                               .read(cartProvider.notifier)
-                              .addToCart(product);
+                              .addToCart(widget.product);
+
                           ScaffoldMessenger.of(context).clearSnackBars();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(isAdded
-                                  ? 'Added ${product.name} to Cart!'
-                                  : '${product.name} is in Cart already!'),
+                                  ? 'Added ${widget.product.name} to Cart!'
+                                  : '${widget.product.name} is in Cart already!'),
                             ),
                           );
                         },

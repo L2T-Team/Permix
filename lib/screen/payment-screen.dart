@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/provider/cart-provider.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
 
 import '../widget/common/info-row.dart';
 
-class PaymentScreen extends StatelessWidget {
+class PaymentScreen extends ConsumerWidget {
   const PaymentScreen({Key? key}) : super(key: key);
 
   final _phoneNum = '0327 334 385';
@@ -15,7 +17,9 @@ class PaymentScreen extends StatelessWidget {
   final _bankNum = '03594892501';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final orderName = ref.read(cartProvider.notifier).getOrderName();
+
     return Scaffold(
       appBar: getAppBar(context),
       body: Container(
@@ -44,7 +48,7 @@ class PaymentScreen extends StatelessWidget {
               children: [
                 Text('Total Amount'),
                 Text(
-                  '5.000k',
+                  '${ref.watch(cartProvider.notifier).getTotalSelectedPrice().toStringAsFixed(0)}k',
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ],
@@ -62,7 +66,7 @@ class PaymentScreen extends StatelessWidget {
             InfoRow(Icons.money, _bankName),
             InfoRow(Icons.numbers, _bankNum),
             InfoRow(Icons.person, _name),
-            InfoRow(Icons.description, 'order_1_20231201'),
+            InfoRow(Icons.description, orderName),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Divider(
@@ -78,7 +82,7 @@ class PaymentScreen extends StatelessWidget {
             SizedBox(height: 10),
             InfoRow(Icons.numbers, _phoneNum),
             InfoRow(Icons.person, _name),
-            InfoRow(Icons.description, 'order_1_20231201'),
+            InfoRow(Icons.description, orderName),
             Material(
               color: Colors.transparent,
               child: InkWell(
