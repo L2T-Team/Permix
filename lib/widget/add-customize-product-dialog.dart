@@ -5,15 +5,15 @@ import 'package:permix/provider/customize-provider.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/routes.dart';
 
+import '../provider/cart-provider.dart';
 import '../util/custom-page-route-builder.dart';
 
 class AddCustomizeProductDialog extends ConsumerStatefulWidget {
-  const AddCustomizeProductDialog({
+  AddCustomizeProductDialog({
     Key? key,
-    required this.cusProduct,
   }) : super(key: key);
 
-  final CustomizeProduct cusProduct;
+  late CustomizeProduct cusProduct;
 
   @override
   ConsumerState<AddCustomizeProductDialog> createState() =>
@@ -26,6 +26,8 @@ class _AddCustomizeProductDialogState
 
   @override
   Widget build(BuildContext context) {
+    widget.cusProduct = ref.watch(customizeProvider);
+
     return _isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -52,16 +54,32 @@ class _AddCustomizeProductDialogState
                   children: [
                     Flexible(
                       child: TextButton(
-                          onPressed: () async {
+                          onPressed: () {
                             setState(() {
                               _isLoading = true;
                             });
-                            await ref
-                                .read(customizeProvider.notifier)
-                                .addToFirestore();
-                            setState(() {
-                              _isLoading = true;
+                            ref
+                                .watch(customizeProvider.notifier)
+                                .addToFirestore()
+                                .then((value) {
+                              var isAdded = ref
+                                  .read(cartProvider.notifier)
+                                  .addToCart(ref.watch(customizeProvider));
+
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(isAdded
+                                      ? 'Added ${widget.cusProduct.name} to Cart!'
+                                      : '${widget.cusProduct.name} is in Cart already!'),
+                                ),
+                              );
+
+                              setState(() {
+                                _isLoading = false;
+                              });
                             });
+
                             // Close the dialog
                             Navigator.of(context).pushAndRemoveUntil(
                                 CustomPageRouteBuilder.getPageRouteBuilder(

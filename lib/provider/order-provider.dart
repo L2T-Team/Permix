@@ -23,6 +23,11 @@ class OrderNotifier extends StateNotifier<List<permix_order.Order>> {
     state = newOrders;
   }
 
+  Future<void> updateOrderStatus(String id, permix_order.Order order) async {
+    var collection = FirebaseFirestore.instance.collection('orders');
+    await collection.doc(id).update(order.toMap());
+  }
+
   Future<void> getAllOrders() async {
     final querySnapshot =
         await FirebaseFirestore.instance.collection('orders').get();

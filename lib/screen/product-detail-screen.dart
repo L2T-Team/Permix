@@ -124,22 +124,23 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             showDialog(
                               context: context,
                               builder: (ctx) => AddCustomizeProductDialog(
-                                cusProduct: widget.product as CustomizeProduct,
+                                // cusProduct: widget.product as CustomizeProduct,
+                              ),
+                            );
+                          } else {
+                            var isAdded = ref
+                                .read(cartProvider.notifier)
+                                .addToCart(widget.product);
+
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(isAdded
+                                    ? 'Added ${widget.product.name} to Cart!'
+                                    : '${widget.product.name} is in Cart already!'),
                               ),
                             );
                           }
-                          var isAdded = ref
-                              .read(cartProvider.notifier)
-                              .addToCart(widget.product);
-
-                          ScaffoldMessenger.of(context).clearSnackBars();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(isAdded
-                                  ? 'Added ${widget.product.name} to Cart!'
-                                  : '${widget.product.name} is in Cart already!'),
-                            ),
-                          );
                         },
                         child: Text('Add to Cart'),
                       );

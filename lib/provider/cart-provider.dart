@@ -27,7 +27,7 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
     return isAdded;
   }
 
-  Future<void> submitOrder(String orderName, String userId, String userEmail) async {
+  Future<void> submitOrder(String orderName, String userId, String userEmail, List<String> productIds) async {
     await FirebaseFirestore.instance.collection('orders').add(<String, dynamic>{
       'name': orderName,
       'userId': userId,
@@ -35,6 +35,7 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
       'totalPrice': getTotalSelectedPrice(),
       'dateTime': DateTime.now(),
       'orderStatus': OrderStatus(OrderStatusValues.paid).toString(),
+      'productIds': productIds.toString()
     });
 
     var newState = Map<String, CartProduct>.from(state);
@@ -88,6 +89,10 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
       (previousValue, element) => previousValue +=
           element.isSelected ? element.amount * element.indiePrice : 0.0,
     );
+  }
+
+  List<String> getAllSelectedProduct() {
+    return state.keys.toList();
   }
 
   String getOrderName() {

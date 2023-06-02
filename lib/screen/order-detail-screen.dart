@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:permix/screen/shipping-screen.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/common/my-back-button.dart';
 import 'package:permix/widget/item/order-detail-item.dart';
 
+import '../model/order.dart';
 import '../util/constant.dart';
-import '../util/custom-page-route-builder.dart';
+import '../widget/admin-order-dialog.dart';
 import '../widget/common/app-bar.dart';
 
 class OrderDetailScreen extends StatelessWidget {
-  const OrderDetailScreen({Key? key}) : super(key: key);
+  const OrderDetailScreen(this.order, {Key? key}) : super(key: key);
+
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var padding = MediaQuery.of(context).padding;
     return Scaffold(
-      appBar: getAppBar(context, isCartActive: false),
+      appBar: getAppBar(context, isCartActive: false, isAdmin: true),
       body: Container(
         width: size.width,
         height: size.height - kToolbarHeight - padding.top,
@@ -25,14 +28,17 @@ class OrderDetailScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'ORDER DETAIL',
-              style: Theme.of(context).textTheme.headlineLarge,
+              order.name,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge!
+                  .copyWith(fontSize: 24),
             ),
             const SizedBox(
               height: 15,
             ),
             Text(
-              '2 Items',
+              '0 Item',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Padding(
@@ -43,14 +49,19 @@ class OrderDetailScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            Expanded(
+            const Expanded(
+              child: Center(
+                child: Text('List Products is coming soon!'),
+              ),
+            ),
+            /*Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: 5,
                   itemBuilder: (_, index) {
                     return OrderDetailItem();
                   }),
-            ),
+            ),*/
             SizedBox(height: 15),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -61,7 +72,7 @@ class OrderDetailScreen extends StatelessWidget {
                   children: [
                     Text('Total Amount'),
                     Text(
-                      '5.000k',
+                      '${getThousandSeparatedString(order.totalPrice)}k',
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
@@ -74,7 +85,21 @@ class OrderDetailScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                MyBackButton(),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const MyBackButton(),
+                    ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => AdminOrderDialog(order),
+                          );
+                        },
+                        child: Text('Change Status')),
+                  ],
+                ),
               ],
             )
           ],

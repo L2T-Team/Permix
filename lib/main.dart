@@ -1,7 +1,9 @@
+import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/screen/customize-screen.dart';
+import 'package:permix/screen/home-screen.dart';
 import 'package:permix/screen/login-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/screen/signup-screen.dart';
@@ -112,7 +114,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginScreen(),
+      home: const HomeScreen(),
       routes: {
         PermixRoutes.productScreen: (_) => ProductScreen(),
         PermixRoutes.customizeScreen: (_) => CustomizeScreen(),

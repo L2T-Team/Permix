@@ -36,7 +36,7 @@ class Capacity {
 class OrderStatus {
   final OrderStatusValues statusVal;
 
-  OrderStatus(this.statusVal);
+  const OrderStatus(this.statusVal);
 
   static OrderStatus toOrderStatus(String str) {
     switch (str) {

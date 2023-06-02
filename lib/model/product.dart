@@ -65,7 +65,7 @@ class CustomizeProduct extends Product {
       : capacity = const Capacity(CapacityValues.ten),
         concentration = Concentration.EDP,
         super(
-          id: DateTime.now().toString(),
+          id: '',
           name: generateRandomPerfumeName(),
           imgUrl: '$IMAGE_PATH/products/1.png',
           price: 200,

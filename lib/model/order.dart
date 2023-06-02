@@ -1,4 +1,5 @@
 import 'package:permix/model/enum.dart';
+import 'package:permix/model/product.dart';
 
 class Order {
   final String id;
@@ -7,7 +8,8 @@ class Order {
   final String userEmail;
   final double totalPrice;
   final DateTime dateTime;
-  final OrderStatus orderStatus;
+  final String productIds;
+  OrderStatus orderStatus;
 
   Order({
     required this.id,
@@ -16,18 +18,32 @@ class Order {
     required this.userEmail,
     required this.totalPrice,
     required this.dateTime,
-    required this.orderStatus,
+    required this.productIds,
+    this.orderStatus = const OrderStatus(OrderStatusValues.paid),
   });
 
   static Order fromMap(Map<String, dynamic> data, String id) {
     return Order(
-      id: id,
-      name: data['name'],
-      userId: data['userId'],
-      userEmail: data['userEmail'],
-      totalPrice: data['totalPrice'],
-      dateTime: data['dateTime'].toDate(),
-      orderStatus: OrderStatus.toOrderStatus(data['orderStatus']),
-    );
+        id: id,
+        name: data['name'],
+        userId: data['userId'],
+        userEmail: data['userEmail'],
+        totalPrice: data['totalPrice'],
+        dateTime: data['dateTime'].toDate(),
+        orderStatus: OrderStatus.toOrderStatus(data['orderStatus']),
+        productIds: data['productIds']);
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      // 'id': order.id,
+      'name': name,
+      'userId': userId,
+      'userEmail': userEmail,
+      'totalPrice': totalPrice,
+      'dateTime': dateTime,
+      'orderStatus': orderStatus.toString(),
+      'productIds': productIds,
+    };
   }
 }

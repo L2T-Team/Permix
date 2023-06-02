@@ -22,11 +22,12 @@ class AdminItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           OrderStatusBadge(
-              status: OrderStatus(OrderStatusValues.delivering).toString()),
+            status: order.orderStatus.toString(),
+          ),
         ],
       ),
       title: getFormatterDateTime(order.dateTime),
-      subTitle: '${order.totalPrice.toStringAsFixed(0)}k',
+      subTitle: '${getThousandSeparatedString(order.totalPrice)}k',
     );
   }
 }

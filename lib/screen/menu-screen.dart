@@ -11,7 +11,9 @@ import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/common/my-back-button.dart';
 
+import '../provider/customize-provider.dart';
 import '../util/custom-page-route-builder.dart';
+import '../widget/common/custom-snack-bar.dart';
 
 class MenuScreen extends StatelessWidget {
   const MenuScreen({
@@ -26,7 +28,7 @@ class MenuScreen extends StatelessWidget {
     return Scaffold(
       appBar: getAppBar(
         context,
-        isAdmin: true,
+        isAdmin: isAdmin,
         isMenuActive: false,
         isCartActive: false,
       ),
@@ -121,14 +123,18 @@ class MenuScreen extends StatelessWidget {
                           },
                           child: Text('All Products')),
                       SizedBox(height: 10),
-                      ElevatedButton(
-                          onPressed: () {
-                            // Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(
-                                CustomPageRouteBuilder.getPageRouteBuilder(
-                                    CustomizeScreen()));
-                          },
-                          child: Text('Customize')),
+                      Consumer(builder: (context, ref, _) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              ref
+                                  .read(customizeProvider.notifier)
+                                  .resetIfCreated();
+                              Navigator.of(context).pushReplacement(
+                                  CustomPageRouteBuilder.getPageRouteBuilder(
+                                      CustomizeScreen()));
+                            },
+                            child: Text('Customize'));
+                      }),
                       SizedBox(height: 10),
                       ElevatedButton(
                           onPressed: () {
@@ -138,7 +144,11 @@ class MenuScreen extends StatelessWidget {
                           },
                           child: Text('My Orders')),
                       SizedBox(height: 10),
-                      ElevatedButton(onPressed: () {}, child: Text('Settings')),
+                      ElevatedButton(
+                          onPressed: () {
+                            showFeatureSoonSnackBar(context);
+                          },
+                          child: Text('Settings')),
                       SizedBox(height: 10),
                       ElevatedButton(
                           onPressed: () {

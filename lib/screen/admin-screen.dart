@@ -53,7 +53,7 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
         child: Column(
           children: [
             Text(
-              'MY ORDERS',
+              'ALL ORDERS',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const SizedBox(
@@ -71,25 +71,31 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: orders.length,
-                itemBuilder: (_, index) {
-                  return Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (_) => AdminOrderDialog(orders[index]));
+            _isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: orders.length,
+                      itemBuilder: (_, index) {
+                        return Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                CustomPageRouteBuilder.getPageRouteBuilder(
+                                  OrderDetailScreen(orders[index]),
+                                ),
+                              );
+                            },
+                            child: AdminItem(orders[index]),
+                          ),
+                        );
                       },
-                      child: AdminItem(orders[index]),
                     ),
-                  );
-                },
-              ),
-            ),
+                  ),
             const SizedBox(
               height: 10,
             ),

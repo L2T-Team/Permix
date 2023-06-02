@@ -70,9 +70,15 @@ class CustomizeNotifier extends StateNotifier<CustomizeProduct> {
       print('error');
     });
 
-    state = CustomizeProduct.empty();
+    state = newProd;
 
     return 'newProd.id';
+  }
+
+  void resetIfCreated() {
+    if (state.id != '') {
+      state = CustomizeProduct.empty();
+    }
   }
 }
 

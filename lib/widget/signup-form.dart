@@ -5,6 +5,7 @@ import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/screen/menu-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/custom-page-route-builder.dart';
+import 'package:permix/widget/common/my-back-button.dart';
 
 import 'common/custom-text-form-field.dart';
 
@@ -90,24 +91,31 @@ class _SignupFormState extends ConsumerState<SignupForm> {
           ),*/
                 Padding(
                   padding: EdgeInsets.only(top: 25),
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      await _onSignUpTap();
-                      if (ref.watch(authProvider)!.user.id != '') {
-                        Navigator.of(context).pushReplacement(
-                            CustomPageRouteBuilder.getPageRouteBuilder(
-                                MenuScreen()));
-                      }
-                      // Navigator.of(context).push(
-                      //   PageRouteBuilder(
-                      //     pageBuilder: (_, __, ___) => ProductScreen(),
-                      //     transitionDuration: Duration(seconds: 1),
-                      //     transitionsBuilder: (_, a, __, c) =>
-                      //         FadeTransition(opacity: a, child: c),
-                      //   ),
-                      // );
-                    },
-                    child: const Text('Create Account'),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      MyBackButton(),
+                      ElevatedButton(
+                        onPressed: () async {
+                          await _onSignUpTap();
+                          if (ref.watch(authProvider)!.user.id != '') {
+                            Navigator.of(context).pushReplacement(
+                                CustomPageRouteBuilder.getPageRouteBuilder(
+                                    MenuScreen()));
+                          }
+                          // Navigator.of(context).push(
+                          //   PageRouteBuilder(
+                          //     pageBuilder: (_, __, ___) => ProductScreen(),
+                          //     transitionDuration: Duration(seconds: 1),
+                          //     transitionsBuilder: (_, a, __, c) =>
+                          //         FadeTransition(opacity: a, child: c),
+                          //   ),
+                          // );
+                        },
+                        child: const Text('Create Account'),
+                      ),
+                    ],
                   ),
                 ),
               ],

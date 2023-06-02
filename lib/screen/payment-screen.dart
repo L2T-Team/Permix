@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/provider/cart-provider.dart';
+import 'package:permix/screen/home-screen.dart';
 import 'package:permix/screen/order-screen.dart';
+import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
@@ -123,11 +125,14 @@ class PaymentScreen extends ConsumerWidget {
                                 orderName,
                                 ref.read(authProvider)!.user.id,
                                 ref.read(authProvider)!.user.email!,
+                                ref
+                                    .read(cartProvider.notifier)
+                                    .getAllSelectedProduct(),
                               )
                               .then((value) {
                             Navigator.of(context).pushAndRemoveUntil(
                                 CustomPageRouteBuilder.getPageRouteBuilder(
-                                    const OrderScreen()),
+                                      ProductScreen()),
                                 (route) => false);
                           });
                         },
