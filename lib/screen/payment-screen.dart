@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/provider/cart-provider.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/admin-order-dialog.dart';
@@ -107,7 +108,12 @@ class PaymentScreen extends ConsumerWidget {
                           Navigator.of(context).pop();
                         },
                         child: Text('Back')),
-                    ElevatedButton(onPressed: () {}, child: Text('Transfered'))
+                    ElevatedButton(
+                        onPressed: () async {
+                          await ref.read(cartProvider.notifier).submitOrder(
+                              orderName, ref.read(authProvider)!.user.id);
+                        },
+                        child: Text('Transfered'))
                   ],
                 ),
               ),

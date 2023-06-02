@@ -41,3 +41,8 @@ String generateRandomPerfumeName() {
 
   return name;
 }
+
+String getFormatterDateTime(DateTime dateTime) {
+  final formatter = DateFormat('HH:mm dd-MM-yyyy');
+  return formatter.format(dateTime);
+}

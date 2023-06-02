@@ -112,7 +112,7 @@ class MainApp extends StatelessWidget {
           ),
         ),
       ),
-      home: ProductScreen(),
+      home: LoginScreen(),
       routes: {
         PermixRoutes.productScreen: (_) => ProductScreen(),
         PermixRoutes.customizeScreen: (_) => CustomizeScreen(),

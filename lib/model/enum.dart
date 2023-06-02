@@ -38,6 +38,25 @@ class OrderStatus {
 
   OrderStatus(this.statusVal);
 
+  static OrderStatus toOrderStatus(String str) {
+    switch (str) {
+      case 'Paid':
+        return OrderStatus(OrderStatusValues.paid);
+      case 'Verifying':
+        return OrderStatus(OrderStatusValues.verifying);
+      case 'Failed':
+        return OrderStatus(OrderStatusValues.failed);
+      case 'Processing':
+        return OrderStatus(OrderStatusValues.processing);
+      case 'Delivering':
+        return OrderStatus(OrderStatusValues.delivering);
+      case 'Delivered':
+        return OrderStatus(OrderStatusValues.delivered);
+      default:
+        return OrderStatus(OrderStatusValues.paid);
+    }
+  }
+
   @override
   String toString() {
     switch (statusVal) {

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:permix/model/cart-product.dart';
+import 'package:permix/model/enum.dart';
 import 'package:permix/model/product.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -23,6 +25,21 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
     }
     state = {...state, prod.id: cartProd};
     return isAdded;
+  }
+
+  Future<void> submitOrder(String orderName, String userId) async {
+    await FirebaseFirestore.instance.collection('orders').add(<String, dynamic>{
+      'name': orderName,
+      'userId': userId,
+      'totalPrice': getTotalSelectedPrice(),
+      'dateTime': DateTime.now(),
+      'orderStatus': OrderStatus(OrderStatusValues.paid).toString(),
+    });
+
+    var newState = Map<String, CartProduct>.from(state);
+    newState.removeWhere((key, value) => value.isSelected);
+
+    state = newState;
   }
 
   void toggleSelect(String prodId, bool val) {
