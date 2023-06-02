@@ -98,9 +98,11 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                     onPressed: () async {
                       await _onLoginTap();
                       if (ref.watch(authProvider)!.user.id != '') {
-                        Navigator.of(context).push(
-                            CustomPageRouteBuilder.getPageRouteBuilder(
-                                  ProductScreen()));
+                        Navigator.of(context).pushReplacement(
+                          CustomPageRouteBuilder.getPageRouteBuilder(
+                            ProductScreen(),
+                          ),
+                        );
                       }
                     },
                     child: const Text('Log in'),
