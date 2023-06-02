@@ -63,7 +63,9 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         ),
         style: Theme.of(context).textTheme.bodyMedium,
         obscureText: !isShowed,
-        validator: (val) => widget.validator!(val),
+        validator: (val) {
+          return widget.validator!(val);
+        },
         onSaved: widget.onSaved,
       ),
     );

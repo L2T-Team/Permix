@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permix/screen/customize-screen.dart';
 import 'package:permix/screen/login-screen.dart';
+import 'package:permix/screen/signup-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:permix/widget/login-form.dart';
 import 'firebase_options.dart';
 
 void main() async {

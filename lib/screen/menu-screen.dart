@@ -26,7 +26,7 @@ class MenuScreen extends StatelessWidget {
         color: Theme.of(context).colorScheme.background,
         child: Consumer(
           builder: (context, ref, _) {
-            var user = ref.read(authProvider)!.user;
+            var user = ref.watch(authProvider)!.user;
             var userName = user.name;
             var userEmail = user.email;
 
@@ -57,7 +57,7 @@ class MenuScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 30.0),
                         child: ImageIcon(
-                          AssetImage(
+                          const AssetImage(
                             '$IMAGE_PATH/profile-icon.png',
                           ),
                           size: size.width / 6,
@@ -65,15 +65,15 @@ class MenuScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        userName!,
+                        userName ?? userEmail!,
                         style: Theme.of(context).textTheme.headlineLarge,
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Text(
                         userEmail!,
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 30,
                       ),
                       ElevatedButton(
