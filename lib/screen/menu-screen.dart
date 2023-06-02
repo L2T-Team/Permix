@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/provider/auth-provider.dart';
+import 'package:permix/screen/admin-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
+import 'package:permix/screen/home-screen.dart';
 import 'package:permix/screen/order-screen.dart';
 import 'package:permix/screen/product-screen.dart';
+import 'package:permix/screen/splash-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/common/app-bar.dart';
+import 'package:permix/widget/common/my-back-button.dart';
 
 import '../util/custom-page-route-builder.dart';
 
@@ -20,7 +24,12 @@ class MenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: getAppBar(context, isMenuActive: false),
+      appBar: getAppBar(
+        context,
+        isAdmin: true,
+        isMenuActive: false,
+        isCartActive: false,
+      ),
       body: Container(
         width: double.infinity,
         color: Theme.of(context).colorScheme.background,
@@ -34,23 +43,50 @@ class MenuScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: isAdmin
                   ? [
-                      Expanded(
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
                         child: Align(
-                          alignment: Alignment.bottomCenter,
+                          alignment: Alignment.center,
                           child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Log out'),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                CustomPageRouteBuilder.getPageRouteBuilder(
+                                  AdminScreen(),
+                                ),
+                              );
+                            },
+                            child: Text('All Order'),
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: Align(
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Back')),
+                      Align(
+                        alignment: Alignment.center,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                CustomPageRouteBuilder.getPageRouteBuilder(
+                                  const HomeScreen(),
+                                ),
+                                (route) => false);
+                          },
+                          child: Text('Log out'),
                         ),
+                      ),
+                      Expanded(
+                        child: isAdmin
+                            ? SizedBox.shrink()
+                            : Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('Back')),
+                                ),
+                              ),
                       ),
                     ]
                   : [
@@ -104,14 +140,19 @@ class MenuScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(onPressed: () {}, child: Text('Settings')),
                       SizedBox(height: 10),
-                      ElevatedButton(onPressed: () {}, child: Text('Log out')),
-                      Expanded(
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushAndRemoveUntil(
+                              CustomPageRouteBuilder.getPageRouteBuilder(
+                                const HomeScreen(),
+                              ),
+                              (route) => false,
+                            );
+                          },
+                          child: Text('Log out')),
+                      const Expanded(
                         child: Align(
-                          child: TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Back')),
+                          child: MyBackButton(),
                         ),
                       ),
                     ],

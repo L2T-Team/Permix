@@ -17,7 +17,8 @@ class AdminItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // OrderStatusBadge(status: OrderStatus.delivering),
+          OrderStatusBadge(
+              status: OrderStatus(OrderStatusValues.delivering).toString()),
           Text(
             'Verifying payment!',
             style:
@@ -27,7 +28,6 @@ class AdminItem extends StatelessWidget {
       ),
       title: '01/04/2013',
       subTitle: '2.999K',
-
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:permix/provider/auth-provider.dart';
+import 'package:permix/screen/menu-screen.dart';
 import 'package:permix/widget/common/custom-text-form-field.dart';
 
 import '../screen/product-screen.dart';
@@ -97,7 +98,17 @@ class _LoginFormState extends ConsumerState<LoginForm> {
                   child: ElevatedButton(
                     onPressed: () async {
                       await _onLoginTap();
-                      if (ref.watch(authProvider)!.user.id != '') {
+                      var user = ref.watch(authProvider)!.user;
+                      if (user.id != '') {
+                        if (user.isAdmin) {
+                          Navigator.of(context).pushReplacement(
+                            CustomPageRouteBuilder.getPageRouteBuilder(
+                              MenuScreen(isAdmin: true),
+                            ),
+                          );
+                          return;
+                        }
+
                         Navigator.of(context).pushReplacement(
                           CustomPageRouteBuilder.getPageRouteBuilder(
                             ProductScreen(),

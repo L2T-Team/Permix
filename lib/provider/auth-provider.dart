@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:permix/util/constant.dart';
 
 import '../model/user.dart' as permix_user;
 import '../repository/auth-repository.dart';
@@ -27,6 +28,7 @@ class AuthNotifier extends StateNotifier<UserData> {
         id: credential.user!.uid,
         email: credential.user!.email,
         name: credential.user!.displayName,
+        isAdmin: email == ADMIN_EMAIL,
       );
       //TODO: change this to display name when possible.
       newUserData.error = '';

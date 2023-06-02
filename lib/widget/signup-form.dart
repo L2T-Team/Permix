@@ -94,7 +94,7 @@ class _SignupFormState extends ConsumerState<SignupForm> {
                     onPressed: () async {
                       await _onSignUpTap();
                       if (ref.watch(authProvider)!.user.id != '') {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                             CustomPageRouteBuilder.getPageRouteBuilder(
                                 MenuScreen()));
                       }
