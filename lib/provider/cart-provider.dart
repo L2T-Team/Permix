@@ -27,10 +27,11 @@ class CartNotifier extends StateNotifier<Map<String, CartProduct>> {
     return isAdded;
   }
 
-  Future<void> submitOrder(String orderName, String userId) async {
+  Future<void> submitOrder(String orderName, String userId, String userEmail) async {
     await FirebaseFirestore.instance.collection('orders').add(<String, dynamic>{
       'name': orderName,
       'userId': userId,
+      'userEmail': userEmail,
       'totalPrice': getTotalSelectedPrice(),
       'dateTime': DateTime.now(),
       'orderStatus': OrderStatus(OrderStatusValues.paid).toString(),

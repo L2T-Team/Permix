@@ -17,13 +17,21 @@ class OrderNotifier extends StateNotifier<List<permix_order.Order>> {
     for (var doc in querySnapshot.docs) {
       Map<String, dynamic> data = doc.data();
       newOrders.add(
-        permix_order.Order(
-          name: data['name'],
-          userId: data['userId'],
-          totalPrice: data['totalPrice'],
-          dateTime: data['dateTime'].toDate(),
-          orderStatus: OrderStatus.toOrderStatus(data['orderStatus']),
-        ),
+        permix_order.Order.fromMap(data, doc.id),
+      );
+    }
+    state = newOrders;
+  }
+
+  Future<void> getAllOrders() async {
+    final querySnapshot =
+        await FirebaseFirestore.instance.collection('orders').get();
+    List<permix_order.Order> newOrders = [];
+
+    for (var doc in querySnapshot.docs) {
+      Map<String, dynamic> data = doc.data();
+      newOrders.add(
+        permix_order.Order.fromMap(data, doc.id),
       );
     }
 

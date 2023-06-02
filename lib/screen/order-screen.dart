@@ -49,7 +49,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
       body: Container(
         color: Theme.of(context).colorScheme.background,
         width: size.width,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             vertical: 20, horizontal: DEFAULT_HORIZONTAL_PADDING),
         child: Column(
           children: [
@@ -57,7 +57,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
               'MY ORDERS',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(

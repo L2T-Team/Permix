@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:permix/screen/payment-screen.dart';
 import 'package:permix/screen/shipping-screen.dart';
+import 'package:permix/widget/common/my-back-button.dart';
 import 'package:permix/widget/item/order-detail-item.dart';
 
 import '../util/constant.dart';
 import '../util/custom-page-route-builder.dart';
 import '../widget/common/app-bar.dart';
-import '../widget/item/cart-item.dart';
 
 class OrderDetailScreen extends StatelessWidget {
   const OrderDetailScreen({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class OrderDetailScreen extends StatelessWidget {
         width: size.width,
         height: size.height - kToolbarHeight - padding.top,
         color: Theme.of(context).colorScheme.background,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
             vertical: 30, horizontal: DEFAULT_HORIZONTAL_PADDING),
         child: Column(
           children: [
@@ -29,7 +28,7 @@ class OrderDetailScreen extends StatelessWidget {
               'ORDER DETAIL',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Text(
@@ -75,14 +74,7 @@ class OrderDetailScreen extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        CustomPageRouteBuilder.getPageRouteBuilder(
-                            ShippingScreen()));
-                  },
-                  child: Text('Back'),
-                ),
+                MyBackButton(),
               ],
             )
           ],

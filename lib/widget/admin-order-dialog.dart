@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:permix/model/enum.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/common/info-row.dart';
+import 'package:permix/widget/common/my-back-button.dart';
 
+import '../model/order.dart';
 import '../util/constant.dart';
 
 class AdminOrderDialog extends StatefulWidget {
-  const AdminOrderDialog({Key? key}) : super(key: key);
+  AdminOrderDialog(this.order, {Key? key}) : super(key: key);
+
+  final Order order;
+  late String _currentState;
 
   @override
   State<AdminOrderDialog> createState() => _AdminOrderDialogState();
 }
 
 class _AdminOrderDialogState extends State<AdminOrderDialog> {
-  var _currentState = OrderStatus(OrderStatusValues.failed).toString();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget._currentState = widget.order.orderStatus.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +31,7 @@ class _AdminOrderDialogState extends State<AdminOrderDialog> {
 
     return Dialog(
       child: Container(
-        width: size.width - 40,
+        width: size.width - 20,
         height: size.height / 1.5,
         color: Theme.of(context).colorScheme.background,
         padding: EdgeInsets.all(20),
@@ -32,39 +43,35 @@ class _AdminOrderDialogState extends State<AdminOrderDialog> {
             ),
             SizedBox(height: 10),
             Text(
-              'perfumelover',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            Text(
-              'perfumelover@permix.com',
+              widget.order.userEmail,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(
               height: 30,
             ),
             Text(
-              'ORDER_11231123',
+              widget.order.name,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge!
-                  .copyWith(fontSize: 25),
+                  .copyWith(fontSize: 20),
             ),
             SizedBox(height: 10),
-            InfoRow(Icons.calendar_month, '01/05/2023 12:30PM'),
-            InfoRow(Icons.price_check, '5.000k'),
+            InfoRow(Icons.calendar_month,
+                getFormatterDateTime(widget.order.dateTime)),
+            SizedBox(height: 10),
+            InfoRow(Icons.price_check,
+                '${getThousandSeparatedString(widget.order.totalPrice)}k'),
             Row(
               children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Icon(Icons.backup_table),
-                SizedBox(
-                  width: 10,
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  child: Icon(Icons.backup_table),
                 ),
                 DropdownButton(
                   dropdownColor: SECONDARY_COLOR,
                   style: Theme.of(context).textTheme.bodyMedium,
-                  value: _currentState,
+                  value: widget._currentState,
                   items: OrderStatusValues.values.map(
                     (e) {
                       var val = OrderStatus(e).toString();
@@ -76,7 +83,7 @@ class _AdminOrderDialogState extends State<AdminOrderDialog> {
                   ).toList(),
                   onChanged: (val) {
                     setState(() {
-                      _currentState = val!;
+                      widget._currentState = val!;
                     });
                   },
                 ),
@@ -88,15 +95,14 @@ class _AdminOrderDialogState extends State<AdminOrderDialog> {
                 child: Row(
                   children: [
                     Flexible(
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text('Close'),
+                      child: MyBackButton(
+                        title: 'Close',
                       ),
                     ),
                     SizedBox(width: 10),
                     Flexible(
-                        child:
-                            ElevatedButton(onPressed: () {}, child: Text('Save'))),
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text('Save'))),
                   ],
                 ),
               ),

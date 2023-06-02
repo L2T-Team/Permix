@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/provider/auth-provider.dart';
 import 'package:permix/provider/cart-provider.dart';
+import 'package:permix/screen/order-screen.dart';
 import 'package:permix/util/constant.dart';
 import 'package:permix/widget/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
 
+import '../util/custom-page-route-builder.dart';
 import '../widget/common/info-row.dart';
 
 class PaymentScreen extends ConsumerWidget {
@@ -109,11 +111,27 @@ class PaymentScreen extends ConsumerWidget {
                         },
                         child: Text('Back')),
                     ElevatedButton(
-                        onPressed: () async {
-                          await ref.read(cartProvider.notifier).submitOrder(
-                              orderName, ref.read(authProvider)!.user.id);
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Your order is submitted!'),
+                            ),
+                          );
+                          ref
+                              .read(cartProvider.notifier)
+                              .submitOrder(
+                                orderName,
+                                ref.read(authProvider)!.user.id,
+                                ref.read(authProvider)!.user.email!,
+                              )
+                              .then((value) {
+                            Navigator.of(context).pushAndRemoveUntil(
+                                CustomPageRouteBuilder.getPageRouteBuilder(
+                                    const OrderScreen()),
+                                (route) => false);
+                          });
                         },
-                        child: Text('Transfered'))
+                        child: const Text('Transferred'))
                   ],
                 ),
               ),
