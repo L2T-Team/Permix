@@ -1,22 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:permix/screen/cart-screen.dart';
 import 'package:permix/screen/customize-screen.dart';
-import 'package:permix/screen/login-screen.dart';
-import 'package:permix/screen/menu-screen.dart';
-import 'package:permix/screen/order-detail-screen.dart';
-import 'package:permix/screen/order-screen.dart';
-import 'package:permix/screen/payment-screen.dart';
-import 'package:permix/screen/product-detail-screen.dart';
-import 'package:permix/screen/product-screen.dart';
-import 'package:permix/screen/shipping-screen.dart';
-import 'package:permix/screen/signup-screen.dart';
-import 'package:permix/screen/home-screen.dart';
 import 'package:permix/util/constant.dart';
-import 'package:permix/util/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const ProviderScope(child: MainApp()));
 }
 
