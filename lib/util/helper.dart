@@ -3,7 +3,16 @@ import 'dart:math';
 
 String getThousandSeparatedString(double num) {
   var formatter = NumberFormat('#,##,000');
-  return formatter.format(num.toInt()).replaceAll(',', '.');
+  return '${formatter.format(num.toInt()).replaceAll(',', '.')}.000đ';
+}
+
+List<String> parseListString(String idsString) {
+  String trimmedInput = idsString.replaceAll('[', '').replaceAll(']', '');
+
+  List<String> result =
+      trimmedInput.split(',').map((value) => value.trim()).toList();
+
+  return result;
 }
 
 String generateRandomPerfumeName() {

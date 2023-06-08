@@ -38,7 +38,7 @@ class OrderDetailScreen extends StatelessWidget {
               height: 15,
             ),
             Text(
-              '0 Item',
+              '${order.products.length} Items',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             Padding(
@@ -49,19 +49,19 @@ class OrderDetailScreen extends StatelessWidget {
                 color: Theme.of(context).colorScheme.secondary,
               ),
             ),
-            const Expanded(
+            /*const Expanded(
               child: Center(
                 child: Text('List Products is coming soon!'),
               ),
-            ),
-            /*Expanded(
+            ),*/
+            Expanded(
               child: ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount: order.products.length,
                   itemBuilder: (_, index) {
-                    return OrderDetailItem();
+                    return OrderDetailItem(order.products[index]);
                   }),
-            ),*/
+            ),
             SizedBox(height: 15),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -70,9 +70,9 @@ class OrderDetailScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Total Amount'),
+                    const Text('Total Amount'),
                     Text(
-                      '${getThousandSeparatedString(order.totalPrice)}k',
+                      getThousandSeparatedString(order.totalPrice),
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
@@ -82,7 +82,7 @@ class OrderDetailScreen extends StatelessWidget {
                   height: 6,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
@@ -97,7 +97,7 @@ class OrderDetailScreen extends StatelessWidget {
                             builder: (_) => AdminOrderDialog(order),
                           );
                         },
-                        child: Text('Change Status')),
+                        child: const Text('Change Status')),
                   ],
                 ),
               ],

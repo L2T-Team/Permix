@@ -47,17 +47,17 @@ class MainApp extends StatelessWidget {
             surface: Colors.orange,
             onSurface: Colors.black12),
         actionIconTheme: const ActionIconThemeData(),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: SECONDARY_COLOR,
           elevation: 0,
         ),
-        iconTheme: IconThemeData(color: PRIMARY_COLOR),
+        iconTheme: const IconThemeData(color: PRIMARY_COLOR),
         fontFamily: "Lato",
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             color: PRIMARY_COLOR,
             fontWeight: FontWeight.w900,
-            fontSize: 30,
+            fontSize: 28,
           ),
           bodySmall: TextStyle(
               color: PRIMARY_COLOR,

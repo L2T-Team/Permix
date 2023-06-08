@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permix/model/product.dart';
 import 'package:permix/screen/product-detail-screen.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/helper.dart';
 
 import '../util/custom-page-route-builder.dart';
 
@@ -47,7 +48,7 @@ class ProductItem extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: Text(
-                  '${product.price.toStringAsFixed(0)}k',
+                  getThousandSeparatedString(product.price),
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ),

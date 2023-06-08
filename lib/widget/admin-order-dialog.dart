@@ -69,7 +69,7 @@ class _AdminOrderDialogState extends ConsumerState<AdminOrderDialog> {
                       getFormatterDateTime(widget.order.dateTime)),
                   SizedBox(height: 10),
                   InfoRow(Icons.price_check,
-                      '${getThousandSeparatedString(widget.order.totalPrice)}k'),
+                      getThousandSeparatedString(widget.order.totalPrice)),
                   Row(
                     children: [
                       const Padding(

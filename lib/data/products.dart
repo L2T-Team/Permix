@@ -3,7 +3,7 @@ import 'package:permix/util/constant.dart';
 
 var initialProducts = [
   Product(
-    id: 'init_1',
+    id: '1wjOfh1wcZYjhsSqBCvh',
     name: 'Forest Night',
     imgUrl: '$IMAGE_PATH/products/1.png',
     price: 500,
@@ -14,7 +14,7 @@ var initialProducts = [
     productType: ProductTypeValue.male,
   ),
   Product(
-    id: 'init_2',
+    id: '7TaWkuXOCs5oPX8sYwsi',
     name: 'Whisper in the Rain',
     imgUrl: '$IMAGE_PATH/products/2.png',
     price: 200,
@@ -25,7 +25,7 @@ var initialProducts = [
     productType: ProductTypeValue.unisex,
   ),
   Product(
-    id: 'init_3',
+    id: 'GNNa0FaLzGQDCCAUW9Zu',
     name: 'Secret Whisper',
     imgUrl: '$IMAGE_PATH/products/3.png',
     price: 900,
@@ -36,7 +36,7 @@ var initialProducts = [
     productType: ProductTypeValue.female,
   ),
   Product(
-    id: 'init_4',
+    id: 'HPToLWePMio0huUOiIDv',
     name: 'Firecamp memories',
     imgUrl: '$IMAGE_PATH/products/4.png',
     price: 700,

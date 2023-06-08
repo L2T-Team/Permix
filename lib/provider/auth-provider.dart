@@ -42,6 +42,12 @@ class AuthNotifier extends StateNotifier<UserData> {
     state = newUserData;
   }
 
+  void logOut() {
+    state = UserData(
+      user: const permix_user.User(id: '', name: '', email: ''),
+    );
+  }
+
   Future<void> signUp(String email, String password, String name) async {
     UserData newUserData = UserData.clone(state);
     try {

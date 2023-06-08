@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/model/cart-product.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/item/list-item.dart';
 
 import '../../provider/cart-provider.dart';
@@ -103,7 +104,7 @@ class CartItem extends ConsumerWidget {
         ),
       ),
       title: /*widget.*/ cartProduct.name,
-      subTitle: '${/*widget.*/ cartProduct.indiePrice.toStringAsFixed(0)}k',
+      subTitle: getThousandSeparatedString(cartProduct.indiePrice),
     );
   }
 }

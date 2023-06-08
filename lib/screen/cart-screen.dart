@@ -11,6 +11,7 @@ import 'package:permix/widget/item/cart-item.dart';
 
 import '../model/cart-product.dart';
 import '../util/custom-page-route-builder.dart';
+import '../widget/common/custom-snack-bar.dart';
 
 class CartScreen extends ConsumerWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -111,14 +112,14 @@ class CartScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                ImageIcon(
+                const ImageIcon(
                   AssetImage('$IMAGE_PATH/truck-icon.png'),
                   color: PRIMARY_COLOR,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    'Free Shipping applied over 4.000k!',
+                    'Free Shipping applied over 4.000.000đ!',
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
@@ -134,9 +135,15 @@ class CartScreen extends ConsumerWidget {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Total Amount'),
+                    const Text('Total Amount'),
                     Text(
-                      '${ref.watch(cartProvider.notifier).getTotalSelectedPrice().toStringAsFixed(0)}k',
+                      cartProducts.isEmpty
+                          ? '0đ'
+                          : getThousandSeparatedString(
+                              ref
+                                  .watch(cartProvider.notifier)
+                                  .getTotalSelectedPrice(),
+                            ),
                       style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
@@ -146,17 +153,17 @@ class CartScreen extends ConsumerWidget {
                   height: 6,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Flexible(
+                    const Flexible(
                       child: MyBackButton(),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     cartProducts.isEmpty
@@ -178,20 +185,21 @@ class CartScreen extends ConsumerWidget {
                                 }
                                 Navigator.of(context).push(
                                     CustomPageRouteBuilder.getPageRouteBuilder(
-                                        PaymentScreen()));
+                                        const PaymentScreen()));
                               },
-                              child: Text('Purchase'),
+                              child: const Text('Purchase'),
                             ),
                           ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Flexible(
                       child: TextButton(
                         onPressed: () {
-                          Navigator.of(context).push(
+                          showFeatureSoonSnackBar(context);
+                          /* Navigator.of(context).push(
                               CustomPageRouteBuilder.getPageRouteBuilder(
-                                  ShippingScreen()));
+                                  ShippingScreen()));*/
                         },
                         child: Text('Shipping Info'),
                       ),

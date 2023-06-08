@@ -28,13 +28,19 @@ class _AdminScreenState extends ConsumerState<AdminScreen> {
     setState(() {
       _isLoading = true;
     });
-    ref.read(orderProvider.notifier).getAllOrders().then(
-      (value) {
-        setState(() {
-          _isLoading = false;
-        });
-      },
-    );
+    try {
+      ref.read(orderProvider.notifier).getAllOrders().then(
+        (value) {
+          setState(() {
+            _isLoading = false;
+          });
+        },
+      );
+    } catch (err) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override

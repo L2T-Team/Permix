@@ -7,6 +7,7 @@ import 'package:permix/screen/home-screen.dart';
 import 'package:permix/screen/order-screen.dart';
 import 'package:permix/screen/product-screen.dart';
 import 'package:permix/util/constant.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/admin-order-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
 
@@ -53,19 +54,20 @@ class PaymentScreen extends ConsumerWidget {
               children: [
                 Text('Total Amount'),
                 Text(
-                  '${ref.watch(cartProvider.notifier).getTotalSelectedPrice().toStringAsFixed(0)}k',
+                  getThousandSeparatedString(
+                      ref.watch(cartProvider.notifier).getTotalSelectedPrice()),
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
               'Bank',
               style: Theme.of(context).textTheme.headlineLarge,
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             InfoRow(Icons.money, _bankName),
@@ -127,12 +129,12 @@ class PaymentScreen extends ConsumerWidget {
                                 ref.read(authProvider)!.user.email!,
                                 ref
                                     .read(cartProvider.notifier)
-                                    .getAllSelectedProduct(),
+                                    .getAllSelectedProducts(),
                               )
                               .then((value) {
                             Navigator.of(context).pushAndRemoveUntil(
                                 CustomPageRouteBuilder.getPageRouteBuilder(
-                                      ProductScreen()),
+                                    ProductScreen()),
                                 (route) => false);
                           });
                         },

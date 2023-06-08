@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permix/model/product.dart';
 import 'package:permix/provider/cart-provider.dart';
 import 'package:permix/provider/customize-provider.dart';
+import 'package:permix/util/helper.dart';
 import 'package:permix/widget/add-customize-product-dialog.dart';
 import 'package:permix/widget/common/app-bar.dart';
 import 'package:permix/widget/common/custom-confirm-dialog.dart';
@@ -49,6 +50,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         color: Theme.of(context).colorScheme.background,
         padding: const EdgeInsets.only(
             top: 20,
+            bottom: 20,
             left: DEFAULT_HORIZONTAL_PADDING,
             right: DEFAULT_HORIZONTAL_PADDING),
         child: Column(
@@ -66,25 +68,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 widget.product.imgUrl,
                 fit: BoxFit.contain,
                 width: size.width / 3,
-                height: 80,
+                height: 120,
               ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 5),
               child: Text(
-                '${widget.product.price.toStringAsFixed(0)}k',
+                getThousandSeparatedString(widget.product.price),
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(widget.product.name),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Divider(
               thickness: 1,
               height: 6,
               color: Theme.of(context).colorScheme.secondary,
             ),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Text.rich(
               style: Theme.of(context).textTheme.bodySmall,
               TextSpan(text: '${widget.product.description}\n', children: [
@@ -124,8 +126,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             showDialog(
                               context: context,
                               builder: (ctx) => AddCustomizeProductDialog(
-                                // cusProduct: widget.product as CustomizeProduct,
-                              ),
+                                  // cusProduct: widget.product as CustomizeProduct,
+                                  ),
                             );
                           } else {
                             var isAdded = ref

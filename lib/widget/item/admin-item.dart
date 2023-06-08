@@ -27,7 +27,7 @@ class AdminItem extends StatelessWidget {
         ],
       ),
       title: getFormatterDateTime(order.dateTime),
-      subTitle: '${getThousandSeparatedString(order.totalPrice)}k',
+      subTitle: getThousandSeparatedString(order.totalPrice),
     );
   }
 }

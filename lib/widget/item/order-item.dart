@@ -25,7 +25,7 @@ class OrderItem extends StatelessWidget {
         ],
       ),
       title: getFormatterDateTime(order.dateTime),
-      subTitle: '${order.totalPrice.toStringAsFixed(0)}k',
+      subTitle: getThousandSeparatedString(order.totalPrice),
     );
   }
 }

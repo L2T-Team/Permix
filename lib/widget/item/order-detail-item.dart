@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:permix/util/helper.dart';
 
+import '../../model/cart-product.dart';
 import '../../util/constant.dart';
 import 'list-item.dart';
 
 class OrderDetailItem extends StatelessWidget {
-  const OrderDetailItem({Key? key}) : super(key: key);
+  const OrderDetailItem(this.cartProduct, {Key? key}) : super(key: key);
+
+  final CartProduct cartProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +17,9 @@ class OrderDetailItem extends StatelessWidget {
       leading: Row(
         children: [
           Image.asset(
-            '$IMAGE_PATH/products/1.png',
+            cartProduct.imgUrl,
             height: 70,
+            width: 70,
           ),
         ],
       ),
@@ -29,15 +34,14 @@ class OrderDetailItem extends StatelessWidget {
           width: 30,
           alignment: Alignment.center,
           child: Text(
-            '99',
+            cartProduct.amount.toString(),
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(height: 1),
           ),
         ),
       ),
-      title: 'Secret Whiadfasdfadadsfaasdasdadasd'
-          'dassdfs sdfssper',
-      subTitle: '2.999k',
+      title: cartProduct.name,
+      subTitle: getThousandSeparatedString(cartProduct.indiePrice),
     );
     ;
   }

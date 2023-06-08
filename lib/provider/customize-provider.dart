@@ -48,9 +48,11 @@ class CustomizeNotifier extends StateNotifier<CustomizeProduct> {
 
   Future<String> addToFirestore() async {
     late CustomizeProduct newProd;
+    var id = DateTime.now().toString();
 
     await FirebaseFirestore.instance.collection('customize_products').add(
       <String, dynamic>{
+        'id': id,
         'name': state.name,
         'imgUrl': state.imgUrl,
         'price': state.price,
@@ -65,7 +67,7 @@ class CustomizeNotifier extends StateNotifier<CustomizeProduct> {
         'concentration': state.concentration.name,
       },
     ).then((docRef) {
-      newProd = CustomizeProduct.cloneAssignId(state, docRef.id);
+      newProd = CustomizeProduct.cloneAssignId(state, id);
     }).catchError((error) {
       print('error');
     });

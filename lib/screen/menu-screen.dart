@@ -65,6 +65,7 @@ class MenuScreen extends StatelessWidget {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                           onPressed: () {
+                            ref.watch(authProvider.notifier).logOut();
                             Navigator.of(context).pushAndRemoveUntil(
                                 CustomPageRouteBuilder.getPageRouteBuilder(
                                   const HomeScreen(),
@@ -122,7 +123,7 @@ class MenuScreen extends StatelessWidget {
                                     ProductScreen()));
                           },
                           child: Text('All Products')),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Consumer(builder: (context, ref, _) {
                         return ElevatedButton(
                             onPressed: () {
@@ -135,7 +136,7 @@ class MenuScreen extends StatelessWidget {
                             },
                             child: Text('Customize'));
                       }),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pushReplacement(
@@ -152,6 +153,7 @@ class MenuScreen extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                           onPressed: () {
+                            ref.watch(authProvider.notifier).logOut();
                             Navigator.of(context).pushAndRemoveUntil(
                               CustomPageRouteBuilder.getPageRouteBuilder(
                                 const HomeScreen(),
@@ -159,7 +161,7 @@ class MenuScreen extends StatelessWidget {
                               (route) => false,
                             );
                           },
-                          child: Text('Log out')),
+                          child: const Text('Log out')),
                       const Expanded(
                         child: Align(
                           child: MyBackButton(),

@@ -93,7 +93,7 @@ class _OrderScreenState extends ConsumerState<OrderScreen> {
                       },
                     ),
                   ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             TextButton(
